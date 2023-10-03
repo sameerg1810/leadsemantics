@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <div class="dropdown">
+        <button onclick="myFunction(event)" class="dropbtn">Dropdown</button>
+        <div id="toggler" class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+    </div>
+
+</head>
+
+<body>
+    <h1 id="string replace">String replace</h1>
+    <textarea type="input" class="textarea"></textarea>
+    <button id="changer">Change String</button>
+    <h3 id="answer"></h3>
+    <script>
+
+        let textarea = document.querySelector(".textarea");
+
+        let answer = document.querySelector("#answer");
+
+        let changer = document.querySelector("#changer");
+
+        changer.addEventListener("click", function () {
+            answer.textContent = "";
+            let input = textarea.value.toLowerCase(); // Convert input to lowercase for easier comparison
+            const vowels = ["a", "e", "i", "o", "u"];
+            let vowelIndices = [];
+
+            for (let i = 0; i < input.length; i++) {
+                if (vowels.includes(input[i])) {
+                    vowelIndices.push(i);
+                }
+            }
+
+            if (vowelIndices.length >= 2) {
+                let firstIndex = vowelIndices[0];
+                let lastIndex = vowelIndices[vowelIndices.length - 1]; // Get the index of the last vowel
+                let InputArray = input.split('');
+
+                // Swap the first and last vowels
+                let temp = InputArray[firstIndex];
+                InputArray[firstIndex] = InputArray[lastIndex];
+                InputArray[lastIndex] = temp;
+
+                let output = InputArray.join('');
+                answer.textContent = output;
+            } else {
+                answer.textContent = "Invalid input";
+            }
+        });
+
+
+        //toggling operation___________________________________________________________________________________________________
+
+        function myFunction(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    let expanded = openDropdown.getAttribute("aria-expanded");
+
+                    if (expanded === "true") {
+                        openDropdown.setAttribute("aria-expanded", "false");
+                    } else {
+                        openDropdown.setAttribute("aria-expanded", "true");
+                    }
+                }
+            }
+        }
+
+
+
+
+        //make aria-expanded___________________________________________________________________________
+
+    </script>
+</body>
+
+</html>

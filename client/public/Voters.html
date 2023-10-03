@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mla info</title>
+  <!-- Include Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <!-- Include Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <link href="./mla.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- Container to control positioning -->
+  <div class="header bg-black w-100 text-light">SELECT THE CONSTITUENCY</div>
+  <div class="card bg-info-subtle" id="selectOne">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value id="flexCheckDefault1">
+      <label class="form-check-label" for="flexCheckDefault">
+        <p>MLA -Details checkboxes and radios are replaced with the help of
+          .form-check, a series of classes for both
+          input types that improves the layout and behavior of their HTML
+          elements, that provide greater customization
+          and cross browser consistency. Checkboxes are for selecting one or
+          several options in a list, while radios are
+          for selecting one option from many.</p>
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value id="flexCheckDefault2" checked>
+      <label class="form-check-label" for="flexCheckDefault">
+        <p>Browser default checkboxes and radios are replaced with the help of
+          .form-check, a series of classes for both
+          input types that improves the layout and behavior of their HTML
+          elements, that provide greater customization
+          and cross browser consistency. Checkboxes are for selecting one or
+          several options in a list, while radios are
+          for selecting one option from many.</p>
+      </label>
+    </div>
+  </div>
+  <div class="checkbox-Div bg-success w-100">
+    <h1>MLA-CONSTITUENCY</h1>
+    <div class="container-wrapper col">
+      <!-- Upper Div (Select MLA Section) -->
+      <div id="upper-div" class="container w-25 bg-body-dark row">
+        <div class="card m-0">
+          <div class="card-header bg-body-info text-bg-dark">SELECT MLA</div>
+          <div class="card-body bg-danger-subtle">
+            <form>
+              <div class="form-group">
+                <label for="state">Select a State:</label>
+                <select class="form-control" name="state" id="state">
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="district">Select a District:</label>
+                <select class="form-control" name="district" id="district">
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="mla">Select an MLA:</label>
+                <select class="form-control" name="mla" id="mla">
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card p-1 m-0" id="mlaList"
+        style="display: none; z-index: 99;position:absolute;transform: translateY(16em);">
+        <h6>MLA DETAILS</h6>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-container" id="scroll-container" style="height: 800px; overflow: auto;">
+    <div class="card bg-info w-100 col" id="adithyaL-2">
+      <div class="container row w-100 m-0">
+        <div>
+          <h1 class="bg-body-secondary w-100" id="content1">The Table of details</h1>
+        </div>
+        <div class="column bg-danger col-6" id="div1">
+          <div id="div11">
+
+            <h1 id="h1" value="1">aditya-1</h1>
+
+            <h1 id="h2" value="2">aditya-2</h1>
+
+            <h1 id="h3" value="3">aditya-3</h1>
+
+            <h1 id="h4" value="4">aditya-4</h1>
+
+            <h1 id="h5" value="5">aditya-5</h1>
+
+            <h1 id="h6" value="6">aditya-6</h1>
+
+            <h1 id="h7" value="7">aditya-7</h1>
+
+            <h1 id="h8" value="8">aditya-8</h1>
+
+            <h1 id="h9" value="9">aditya-9</h1>
+            <h1 id="h10" value="10">aditya-10</h1>
+          </div>
+        </div>
+        <div id="div12">
+          <div class="column bg-danger col-6">
+            <table class="table-info">
+              <tr>
+                <button type="submit" onclick="migrate(event.target)" id="b1">1</button>
+              </tr>
+              <tr>
+                <button type="submit" onclick="migrate(event.target)" id="b2">2</button>
+              </tr>
+              <tr>
+                <button type="submit" onclick="migrate(event.target)" id="b3">3</button>
+              </tr>
+              <tr>
+                <button type="submit" onclick="migrate(event.target)" id="b4">4</button>
+              </tr>
+              <tr>
+                <button type="submit" onclick="migrate(event.target)" id="b5">5</button>
+              </tr>
+              <tr>
+                <button type="submit" onclick="migrate(event.target)" id="b6">6</button>
+              </tr>
+              <tr>
+                <button type="submit" onclick="migrate(event.target)" id="b7">7</button>
+              </tr>
+              <tr>
+                <button type="submit" onclick="migrate(event.target)" id="b8">8</button>
+              </tr>
+              <tr>
+                <button type="submit" onclick="migrate(event.target)" id="b9">9</button>
+              </tr>
+              <tr>
+                <button type="submit" onclick="migrate(event.target)" id="b10">10</button>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- On rows -->
+      <div class="card bg-danger w-100 chandrayan-3" id="Chandrayan-3">
+        <div>
+          <h1 class="bg-body-secondary w-100">The Table of Chandrayan-3</h1>
+        </div>
+        <div class="col-6">
+          <table class="table-primary">aditya-11</table>
+          <table class="table-secondary">aditya-12</table>
+          <table class="table-success">aditya-13</table>
+          <table class="table-danger">aditya-14</table>
+          <table class="table-danger">aditya-15</table>
+          <table class="table-danger">aditya-16</table>
+          <table class="table-danger">aditya-17</table>
+          <table class="table-danger">aditya-18</table>
+          <table class="table-danger">aditya-19</table>
+          <table class="table-danger">aditya-20</table>
+        </div>
+        <div class="col-6">
+          <table class="table-warning">11</table>
+          <table class="table-info">12</table>
+          <table class="table-light">13</table>
+          <table class="table-dark">14</table>
+          <table class="table-warning">15</table>
+          <table class="table-info">16</table>
+          <table class="table-light">17</table>
+          <table class="table-dark">18</table>
+          <table class="table-warning">19</table>
+          <table class="table-info">20</table>
+        </div>
+        <!-- On rows -->
+      </div>
+    </div>
+  </div>
+
+  <style>
+    #div1 {
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+      width: 100%;
+    }
+
+    #div11 {
+      overflow: scroll;
+      height: 40vh;
+      width: 50%;
+      border: 1px solid rgb(112, 64, 225);
+    }
+
+    #div12 {
+      display: flex;
+      flex-direction: column;
+      height: 90vh;
+      width: 50%;
+      overflow: scroll;
+      flex-wrap: wrap;
+      border: 1px solid black;
+    }
+
+    #div12 button {
+      width: 100px;
+      margin: 5px;
+      padding: 5px;
+    }
+
+    #div2 {
+      height: 500px;
+      border: 1px solid black;
+    }
+
+    #div11 h1 {
+      background-color: black;
+      margin: 10px;
+    }
+
+    .back {
+      color: white;
+      background-color: aquamarine;
+    }
+
+    #content1 {
+      background-color: rgb(230, 189, 189);
+      font-size: 25px;
+      padding-left: 20px;
+    }
+
+    td {
+      font-size: 25px;
+    }
+
+    .scroll-container {
+      height: 800px;
+      overflow-y: scroll;
+      display: flex;
+    }
+
+    .column {
+      flex: 1;
+      padding: 10px;
+
+      max-height: 40%;
+    }
+
+    .table {
+      width: 30%;
+    }
+
+    body {
+      background-image: url("https://static.vecteezy.com/system/resources/thumbnails/002/018/590/small/abstract-festive-looping-background-free-video.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+
+    .container-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #upper-div {
+      width: 100%;
+    }
+
+    #mlaList {
+      background-color: white;
+      margin-top: 10px;
+      /* Add margin for spacing */
+      padding: 10px;
+    }
+  </style>
+
+  <script>
+    const States = ["Select a State", "Telangana", "Uttarakhand", "AndhraPradesh"];
+    const Districts = {
+      Telangana: ["Medak", "Adilabad", "Rangareddy"],
+      Uttarakhand: ["Haridwar", "Rishikesh", "Bageshwar"],
+      AndhraPradesh: ["Visakhapatnam", "Krishna", "Nellore"],
+    };
+    const MLAs = {
+      Medak: ["KCR", "KTR", "Kavitha"],
+      Haridwar: ["Madan", "Rajesh", "Ravi"],
+      Adilabad: ["TaraSingh", "Prasad", "Shankar"],
+      Nellore: ["Srinivasa_Reddy", "Vijaya_Kumar_Reddy", "Raja_Gopal_Reddy"],
+      Krishna: ["SELECT A MLA", "Haribabu", "Kanna_Babu", "Ramesh"],
+      Visakhapatnam: ["Chinna_Reddy", "Suresh_Kumar", "Narayana_Rao"],
+      Rishikesh: ["Thakur_Singh", "Gulzar_Singh", "Rajeev_Chaudhary"],
+      Bageshwar: ["Satpal_Maharaj", "Ghanshyam_Singh_Rawat", "Ajay_Bhatt"],
+      Rangareddy: ["Nirmal_Kumar", "Gandham_Krishna_Rao", "Satyanarayana"],
+    };
+    const Images = {
+      KCR: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Kalvakuntla_Chandrashekar_Rao.png/220px-Kalvakuntla_Chandrashekar_Rao.png",
+      KTR: "https://cdn.siasat.com/wp-content/uploads/2023/02/KTR_3.jpg",
+      Kavitha: "https://cdn.gulte.com/wp-content/uploads/2021/11/Kavitha.jpg",
+      Madan:
+        "https://expressnews.co.in/wp-content/uploads/2021/08/Madan-kausik-1-2.jpg",
+      Rajesh:
+        "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/334.jpg",
+      Ravi: "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/3104.jpg",
+      TaraSingh:
+        "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/3424.jpg",
+      Prasad:
+        "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/3426.jpg",
+      Shankar:
+        "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/373.jpg",
+      Srinivasa_Reddy:
+        "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/3071.jpg",
+      Vijaya_Kumar_Reddy:
+        "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/3109.jpg",
+      Raja_Gopal_Reddy:
+        "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/3417.jpg",
+      Haribabu:
+        "https://prsindia.org/files/mlatrack/uttarakhand/4/mla_images/Adesh%20Singh%20Chauhan.jpg",
+      Kanna_Babu:
+        "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/828.jpg",
+      Satyanarayana:
+        "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/1331.jpg",
+      Nirmal_Kumar:
+        "https://admin.aplegislature.org//preview.do?filePath=basePath&fileName=photos/15/3414.jpg",
+    };
+    const MLAtableContainer = document.getElementById("mlaList");
+    const stateDropdown = document.getElementById("state");
+    const districtDropdown = document.getElementById("district");
+    const mlaDropdown = document.getElementById("mla");
+    mlaDropdown.innerHTML = '<option value="Select a MLA">Select a MLA</option>';
+    districtDropdown.innerHTML =
+      '<option value="Select a District">Select a District</option>';
+    // Function to populate dropdown options
+    function populateDropdown(selectElement, options) {
+      console.log("populateDropdown function initiated");
+      // selectElement.innerHTML = "";
+      console.log("the selectElement is", selectElement);
+      if (options) {
+        const iterableOptions = Array.from(options);
+        for (const option of iterableOptions) {
+          const optionElement = document.createElement("option");
+          optionElement.textContent = option;
+          optionElement.value = option;
+          selectElement.appendChild(optionElement);
+        }
+      }
+    }
+    populateDropdown(stateDropdown, States); //calling populateDropdown____________________________
+
+    //State Drop down_____________________________________________________________
+    stateDropdown.addEventListener("change", () => {
+      MLAtableContainer.style.display = "none";
+      mlaDropdown.innerHTML = "";
+      mlaDropdown.innerHTML =
+        '<option value="Select a District">Select a District</option>';
+      console.log("State changed");
+      districtDropdown.innerHTML = "";
+      districtDropdown.innerHTML =
+        '<option value="Select a District">Select a District</option>';
+      console.log("State changed");
+      const selectedState = stateDropdown.value;
+      if (selectedState === "Select a State") {
+        MLAtableContainer.style.display = "none";
+        mlaDropdown.innerHTML =
+          '<option value="Select a MLA">Select a MLA</option>';
+        districtDropdown.innerHTML =
+          '<option value="Select a District">Select a District</option>';
+      }
+      console.log("the value in state", selectedState);
+      const districts = Districts[selectedState];
+      populateDropdown(districtDropdown, districts);
+    });
+
+    //District Dropdown______________________________________________________________________
+    districtDropdown.addEventListener("click", () => {
+      MLAtableContainer.style.display = "none";
+      console.log("District changed");
+      const selectedDistrict = districtDropdown.value;
+      if (selectedDistrict === "Select a District") {
+        MLAtableContainer.style.display = "none";
+      }
+      console.log("the value in District", selectedDistrict);
+      mlaDropdown.innerHTML = '<option value="Select a MLA">Select a MLA</option>';
+      const mlas = MLAs[selectedDistrict];
+      populateDropdown(mlaDropdown, mlas);
+    });
+
+    //creating table_________________________________________________________________________________
+
+    const MLA_NAME = "MLA Name";
+    const DISTRICT = "District";
+    const STATE = "State";
+    const IMAGE = "Image";
+    // Event listener for MLA dropdown__________________________________________________
+    mlaDropdown.addEventListener("change", () => {
+      MLAtableContainer.style.display = "none";
+      const selectedMLA = mlaDropdown.value;
+      // Check if the selected MLA is not "Select a MLA"
+      if (selectedMLA !== "Select a MLA") {
+        // Get the selected district and state
+        const selectedDistrict = districtDropdown.value;
+        const selectedState = stateDropdown.value;
+        // Create a table with MLA details
+        mlaTable(selectedMLA, selectedDistrict, selectedState);
+      } else {
+        // If "Select a MLA" is selected, hide the table
+        MLAtableContainer.style.display = "none";
+      }
+    });
+
+    // Function to create and populate MLA table
+    function mlaTable(mlaName, district, state) {
+      MLAtableContainer.style.display = "block";
+      const table = document.createElement("table");
+      table.classList.add(
+        "table",
+        "table-bordered",
+        "table-hover",
+        "table-dark",
+        "card-body"
+      );
+
+      // Create table header
+
+      const tableHeader = document.createElement("thead");
+      const headerRow = document.createElement("tr");
+      const headings = [MLA_NAME, DISTRICT, STATE, IMAGE];
+
+      headings.forEach((heading) => {
+        const th = document.createElement("th");
+        th.textContent = heading;
+        th.classList.add("bg-danger-subtle", "text-dark");
+        headerRow.appendChild(th);
+      });
+
+      tableHeader.appendChild(headerRow);
+      table.appendChild(tableHeader);
+
+      // Create table body with MLA details
+      const tableBody = document.createElement("tbody");
+      const row = document.createElement("tr");
+
+      const mlaDetails = [mlaName, district, state];
+
+      mlaDetails.forEach((detail) => {
+        const cell = document.createElement("td");
+        cell.classList.add("bg-success");
+        cell.textContent = detail;
+        row.appendChild(cell);
+      });
+
+      // Create an image cell
+      const imageCell = document.createElement("td");
+      const image = document.createElement("img");
+      image.src = Images[mlaName];
+      imageCell.appendChild(image);
+      // imageCell.classList.add("img-thumbnail", "rounded-float-left");
+      image.setAttribute("width", "80px");
+      image.setAttribute("height", "80px");
+      row.appendChild(imageCell);
+
+      tableBody.appendChild(row);
+      table.appendChild(tableBody);
+
+      MLAtableContainer.innerHTML = "";
+
+      MLAtableContainer.appendChild(table);
+    }
+
+    //UI scrolling and containers divisions____________________________________________________________________________________________
+    // let mybutton = document.getElementById("myBtn");
+
+    // // When the user scrolls down 20px from the top of the document, show the button
+    // window.onscroll = function () {
+    //   scrollFunction();
+    // };
+
+    // function scrollFunction() {
+    //   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    //     mybutton.style.display = "block";
+    //   } else {
+    //     mybutton.style.display = "none";
+    //   }
+    // }
+    //----------------------------------------------------------------------------------------------------------
+    // function topFunction() {
+    //   // Calculate the offset of the "document" div from the top of the page
+    //   const documentDiv = document.getElementById("document");
+    //   const offset = documentDiv.getBoundingClientRect().top;
+    //   console.log("the offset", offset);
+    //   // Scroll to the "document" div
+    //   window.scrollBy({
+    //     top: offset,
+    //     behavior: "smooth", // Add smooth scrolling effect
+    //   });
+    // }
+    //scroll bottom or up on clicking scroll_______________________________________________________________________
+    // JavaScript code
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const parentDiv = document.querySelector(".header");
+    const rect = parentDiv.getBoundingClientRect();
+    console.log(`Div left: ${rect.left}px`);
+    console.log(`Div top: ${rect.top}px`);
+    console.log(`Div right: ${rect.right}px`);
+    console.log(`Div bottom: ${rect.bottom}px`);
+    console.log(`Viewport width: ${viewportWidth}px`);
+    console.log(`Viewport height: ${viewportHeight}px`);
+    const checkbox1 = document.getElementById("flexCheckDefault1");
+    const checkbox2 = document.getElementById("flexCheckDefault2");
+
+    checkbox1.addEventListener("change", function () {
+      if (this.checked) {
+        // Scroll the viewport to the bottom
+        window.scrollTo({
+          top: document.body.scrollHeight - window.innerHeight,
+          behavior: "smooth",
+        });
+
+        // Scroll the scroll-container to the bottom
+        const scrollContainer = document.getElementById("scroll-container");
+        if (scrollContainer) {
+          scrollContainer.scrollTop = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+          console.log("scrollContainer.scrollTop", scrollContainer.scrollTop);
+        }
+      }
+    });
+
+    checkbox2.addEventListener("change", function () {
+      if (this.checked) {
+        const scrollInfo = scrollAndLog(".checkbox-Div");
+        const offsetFromTop = scrollInfo.offsetTop;
+        const offsetFromBottom = scrollInfo.offsetFromBottom;
+        const actualScrollPosition = scrollInfo.actualScrollPosition;
+
+        console.log(`Offset from top: ${offsetFromTop}`);
+        console.log(`Offset from bottom: ${offsetFromBottom}`);
+        console.log(`Actual scroll position: ${actualScrollPosition}`);
+
+        // Scroll to the .checkbox-Div element using the obtained information
+        window.scrollTo({
+          top: offsetFromTop, // You can adjust this value if needed
+          behavior: "smooth",
+        });
+      }
+    });
+
+    function scrollAndLog(selector) {
+      const element = document.querySelector(selector);
+      if (element) {
+        const offset = element.offsetTop;
+        window.scrollTo({
+          top: offset,
+          behavior: "smooth",
+        });
+
+        // Get the element's position relative to the viewport and other information
+        const rect = element.getBoundingClientRect();
+        const offsetFromTop = rect.top;
+        const offsetFromBottom = window.innerHeight - rect.bottom;
+        const actualScrollPosition = window.scrollY;
+
+        return {
+          offsetTop: offset,
+          offsetFromBottom: offsetFromBottom,
+          actualScrollPosition: actualScrollPosition,
+        };
+      }
+    }
+
+    function scrollToTableBottom(selector) {
+      const table = document.querySelector(selector);
+      if (table) {
+        const tableHeight = table.scrollHeight;
+        table.scrollTop = tableHeight;
+      }
+    }
+
+    const mainScrollContainer = document.getElementById("scroll-container");
+    mainScrollContainer.addEventListener("scroll", function () {
+      const scrollPosition = mainScrollContainer.scrollTop;
+      console.log("the scroll Position of scroll bar now", scrollPosition);
+      const tables = document.querySelectorAll(".card table");
+      tables.forEach((table) => {
+        table.scrollTop = scrollPosition;
+      });
+    });
+    //checkbox scroll______________________________________________________________________________________________________________________________
+
+
+    let content1 = document.getElementById('content1')
+    function migrate(e) {
+      const parentDiv = document.getElementById('div11');
+      const childElements = parentDiv.getElementsByClassName('back');
+      for (let i = 0; i < childElements.length; i++) {
+        childElements[i].classList.remove('back');
+      }
+      let id = e.id;
+      let h1id = id.replace('b', 'h')
+      let h1tag = document.getElementById(h1id)
+      content1.innerHTML = h1tag.innerHTML
+      // console.log('959',h1tag.innerHTML)
+      h1tag.classList.add('back')
+      e.addEventListener('click', function () {
+        const rect = h1tag.getBoundingClientRect()
+        // console.log(h20)
+        // console.log(rect.top)
+        window.scrollTo(0, findPosition(content1))
+        div11.scrollTo(0,
+          findPosition(h1tag)
+        );
+        findPosition(h1tag)
+        function findPosition(obj) {
+          var currenttop = 0;
+          console.log('obj-id=', obj.id)
+          // console.log('infunct', obj.offsetParent)
+          if (obj.offsetParent) {
+            do {
+              if (obj.id == h1id) {
+
+                currenttop = obj.offsetTop - (document.getElementById("div1")).offsetTop
+                console.log('parent', obj.offsetParent)
+              } else {
+                currenttop += obj.offsetTop;
+                // console.log('obj offset=', obj.offsetTop)
+                // console.log('crnt=', currenttop)
+              }
+            } while ((obj = obj.offsetParent));
+            console.log(currenttop)
+            return [currenttop];
+          }
+        }
+        console.log('height=', h1tag.offsetHeight)
+      })
+    }
+
+  </script>
+</body>
+
+</html>

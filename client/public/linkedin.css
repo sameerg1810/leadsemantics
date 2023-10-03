@@ -1,0 +1,30 @@
+.linkedin-login {
+    background-color: #ffffff;
+    margin: 0 auto;
+    width: 400px;
+    padding: 20px;
+}
+
+.linkedin-logo {
+    margin-bottom: 20px;
+}
+
+.linkedin-form {
+    margin-bottom: 20px;
+}
+
+.linkedin-form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.linkedin-form button {
+    width: 100%;
+    background-color: #0077b5;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <!-- bootstrap styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Bootstrap CSS and JavaScript -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="./mla.css" rel="stylesheet">
+    <!-- <script src="./mla.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- axios library -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/0cba31394f.js" crossorigin="anonymous"></script>
+    <link href='./dashboard.css' rel="stylesheet">
+    <title>Login User</title>
+
+</head>
+
+<body style="background: rgb(113, 113, 113)">
+    <!-- server checking -->
+    <div class="spinner-container">
+        <div class="spinner-border" style="display: none;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <!-- div for displaying error message------------------------------------------------------------------------ -->
+    <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
+    <!-- login message display ----------------------------------------------------------------------------------------->
+    <h4 id="successMessage" class="text-center text-dark text-bg-info p-1 z-3 m-0" style="display: none;">"You have
+        Logged
+        in
+        successfully...!"</h4>
+    <nav class="navbar navbar-expand-lg navbar-light bg-info border-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://media.licdn.com/dms/image/C4D0BAQESwbHLJbKkbg/company-logo_400_400/0/1592300130003?e=2147483647&v=beta&t=7cmwDatlT-9yGKKB5Mwybo8pysKALNsQoJJuz7h9AL8"
+                    alt="User Dashboard Logo" width="30" height="24" class="d-inline-block align-text-top">
+                USER Dashboard
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav d-flex justify-content-around">
+                    <li class="nav-item m-0">
+
+                    </li>
+                    <li class="nav-item mt-0"><button type="button"
+                            class="dropdown-item btn btn-outline-primary btn-sm text-danger-emphasis mt-0"
+                            id="savedData"><i class="fa-solid fa-file" style="font-size: larger;"></i></button></li>
+                    <li class="nav-item mt-0"><button id="notifyBtn" type="button"
+                            class="dropdown-item btn btn-outline-success btn-sm text-danger-emphasis"><i
+                                class="fa-solid fa-bell" style="font-size: larger;"></i></button></li>
+                    <li class="nav-item ms-2">
+                        <span class="timer card p-3 bg-danger-subtle" id="session-timer" style="display:none">
+                        </span>
+                    </li>
+                    <li class="nav-item dropdown text-info mr-auto">
+                        <a class="nav-link dropdown-toggle text-danger-emphasis" href="#" id="navbarDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            data-bs-popper="none" data-bs-placement="bottom-end">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <span class="dropdown-item text-black" id="username"></span>
+                            <span class="dropdown-item text-black" id="email"></span>
+                            <button id="logout-btn" type="button"
+                                class="dropdown-item btn btn-danger btn-sm m-0 text-danger">Logout</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container m-0 position-absolute start-50 top-50 translate-middle p-0">
+
+        <!-- upload window ------------------------------------------------------------------------------------------------->
+        <div class="container-wrapper d-flex justify-content-center align-items-center">
+            <div class="position-fixed top-50 start-50 translate-middle" id="upload-win">
+                <div class="card p-0 m-0 bg-danger-subtle shadow-sm rounded">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg"
+                        class="card-img-top mx-auto d-block mb-3 mt-1" style="max-width: 50px;" alt="excel sheet">
+                    <div class="card-body">
+                        <h5 class="card-title">Upload Your File</h5>
+                        <p class="card-text">
+                            <small class="text-muted">Note: Only upload files with a .csv file extension. After
+                                successful upload, click "Show" to display data.</small>
+                        </p>
+                        <!-- Show the file content -->
+                        <h5 class="card-title">Click Here to Show File Content</h5>
+                        <button type="button" class="btn btn-info m-2" id="showTable" onclick="showData()"
+                            style="display:none;">SHOW</button>
+                        <!-- Form to upload the .csv docs -->
+                        <form id="doc" enctype="multipart/form-data">
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" name="csvFile" id="inputGroupFile03" multiple>
+                                <button type="button" class="btn btn-success m-2" onclick="uploadFile(Id)"
+                                    id="uploadFilebtn">UPLOAD</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table container displaying tables in the database -->
+            <div id="tableContainer"
+                class="row container m-0 position-relative start-50 bottom-0 translate-middle-x z-0 "
+                style="display: none">
+                <div class="container mt-4 position-relative z-3" id="searchContainer">
+                    <form class="search-form" id="search-bar">
+                        <div class="input-group">
+                            <textarea class="form-control" name="search" placeholder="Search" rows="1"
+                                aria-label="Search"></textarea>
+                            <div class="input-group-append p-2" id="btnSearchbg">
+                                <i class="fa-solid fa-magnifying-glass fs-5 text-info" id="btnSearch"
+                                    style="cursor: pointer;"></i>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row justify-content-center m-0">
+                    <div class="col-md-6">
+                        <div class="card p-3 mx-auto bg-danger-subtle rounded m-0 ">
+                            <div class="card-body">
+                                <h5 class="card-title">Tables in Database</h5>
+                                <div id="tableList" class="my-3"></div>
+                                <div id="paginationContainer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- window for displaying the csv data ------------------------------------------------------------------------------------------->
+        <div id="popup-win" style="width:95%;height:75%; display: none; z-index: 9999;"
+            class="position-fixed top-50 start-50 translate-middle">
+            <div class="card border border-warning h-100 d-flex flex-column bg-danger-subtle">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="closeTable()">Close</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="saveDB">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="editTableButton"
+                            style="display:none;">Edit-Table</button>
+                    </div>
+                    <h6 id="windowTitle" class="text-center text-dark text-bg-info p-1 bg-body-primary">
+                        Uploaded Data
+                    </h6>
+                </div>
+                <div style="overflow-x: auto; flex: 1;">
+                    <table id="data-table" class="table table-striped table-bordered">
+                        <thead class="thead-dark">
+                            <tr id="table-header"></tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- Dynamic table data goes here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <div class="pagination bg-danger-subtle">
+                        <div id="file-navigation"></div>
+                        <ul id="pagination-container" class="pagination"></ul>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-warning btn-sm ml-auto" id="deleteButton"
+                            onclick="deleteTable()">Delete data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- ending of the table window ------------------------------------------------------------------------------------------------------>
+    <!-- popup message for .csv upload-------------------------------------------------------------------------------------------------------------->
+    <!-- Popup window -->
+    <div id="alertWindow" class="card z-10 position-absolute start-50 top-50 translate-middle shadow-sm border-4"
+        style="display: none;">
+        <div class="card-header">
+            <h5 class="modal-title" id="popup-title"></h5>
+            <button type="button" class="btn-close" onclick="closePopup()"></button>
+        </div>
+        <div class="card-body">
+            <p id="popup-message"></p>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary" onclick="closePopup()">OK</button>
+        </div>
+    </div>
+    <!-- popup-message -->
+    <!-- <div id="popup" class="position-fixed start-50 top-50 translate-middle text-center" style="display: none;">
+        <p id="popup-message">Error message goes here</p>
+        <button id="close-popup" class="btn btn-secondary mt-2">Close</button>
+    </div> -->
+    <!-- popup-confirmation -->
+    <!-- Add this HTML code in your application where you want to display the popup -->
+    <div class="modal" id="confirmationPopup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmation</h5>
+                    <button type="button" class="close" id="modalCloseButton">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmationMessage">Do you want to continue?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="modalCancelButton">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmationOK">OK</button>
+                </div>
+            </div>
+        </div>
+        <div class="card p-1 m-0" id="mlaList"
+            style="display: none; z-index: 99;position:absolute;transform: translateY(16em);">
+            <h6>MLA DETAILS</h6>
+        </div>
+    </div>
+    <div class="card mt-5 w-25 position-absolute end-0 top-25  shadow-sm border-4" id="userNotes"
+        style="display:none;z-index:10000;max-height:150px;background-color:rgb(78, 96, 117);color:pink;overflow:auto;transform: translateY(-75,-50);">
+        <h6>User Notifications</h6>
+        <div id="notificationCards" class="row card-body" style="color:pink">
+            <!-- Notification cards will be dynamically inserted here -->
+        </div>
+    </div>
+    <!-- 
+internal styling ------------------------------------------------------------------------------------------------------------------->
+
+    <!-- javascript --------------------------------------------------------------------------------------------------------------------------->
+    <!-- <script src="./fbHandling.js"></script> -->
+    <script src="./dashboard.js"></script>
+    <script src="./usermessages.js"></script>
+
+</body>
+
+</html>

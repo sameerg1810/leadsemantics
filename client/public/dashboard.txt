@@ -1,0 +1,172 @@
+function displayTableWindow(data, tableName) {
+  // ... (existing code)
+
+  // Create table rows with data
+  data.forEach((row) => {
+    const tr = document.createElement("tr");
+    tr.dataset.id = row.id;
+    columns.forEach((column) => {
+      // ... (existing code)
+
+      // Add a delete button to each row
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.classList.add(
+        "btn",
+        "btn-danger",
+        "btn-sm",
+        "m-1",
+        "delete-cells"
+      );
+      deleteButton.addEventListener("click", () => {
+        deleteRow(tr, row.id, tableName);
+      });
+
+      tr.appendChild(deleteButton);
+
+      tableBody.appendChild(tr);
+    });
+  });
+
+  // ... (existing code)
+
+  // Function to delete a row
+  async function deleteRow(tableRow, rowId, tableName) {
+    try {
+      // Send a request to the server to delete the specific record
+      const response = await fetch(`/api/deleteRecord?tableName=${tableName}&recordId=${rowId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Row successfully deleted
+        alert(`Record with ID ${rowId} has been deleted.`);
+        // Optionally, you can also remove the row from the table
+        tableRow.remove();
+      } else {
+        // Handle errors or show an error message
+        alert('Failed to delete the record.');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+      alert('An error occurred while deleting the record.');
+    }
+  }
+}
+//______________________________________________________________________________________________________
+const PDFParser = require('pdf2json');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const Papa = require('papaparse');
+
+const allowedFileExtensions = [".csv", ".pdf"];
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, "./uploads"),
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, callback) {
+    const fileExtension = path.extname(file.originalname).toLowerCase();
+    if (allowedFileExtensions.includes(fileExtension)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Only CSV and PDF files are allowed"));
+    }
+  },
+  limits: {
+    fileSize: 20 * 1024 * 1024, // File limit is 20 MB
+  },
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+});
+
+// Create an Express app and configure it here...
+
+// Define the PDF parsing function
+const parsePDF = (pdfBuffer) => {
+  return new Promise((resolve, reject) => {
+    const pdfParser = new PDFParser();
+    pdfParser.on('pdfParser_dataError', (error) => {
+      reject('Error parsing PDF.');
+    });
+    pdfParser.on('pdfParser_dataReady', (data) => {
+      const text = data.formImage.Pages.map((page) => {
+        return page.Texts.map((text) => {
+          return decodeURIComponent(text.R[0].T);
+        }).join(' ');
+      }).join('\n');
+      resolve({ text });
+    });
+    pdfParser.parseBuffer(pdfBuffer);
+  });
+};
+
+// Route for file upload
+app.post("/upload", upload.array("file"), async (req, res) => {
+  console.log(`Received request to ${req.url}`);
+  const totalFilesCount = req.files.length;
+
+  if (totalFilesCount === 0) {
+    res.status(400).send("No file uploaded.");
+    return;
+  }
+
+  const pdfFiles = req.files.filter(file => file.mimetype === 'application/pdf');
+  const csvFiles = req.files.filter(file => file.mimetype === 'text/csv');
+
+  // Process PDF files
+  const pdfResults = [];
+  for (const pdfFile of pdfFiles) {
+    try {
+      const pdfData = await parsePDF(pdfFile.buffer);
+      pdfResults.push(pdfData);
+    } catch (error) {
+      console.error("Error processing PDF file:", error);
+      res.status(500).send("Error processing PDF file.");
+      return;
+    }
+  }
+
+  // Process CSV files
+  const csvResults = [];
+  for (const csvFile of csvFiles) {
+    const filePath = csvFile.path;
+    const stream = fs.createReadStream(filePath);
+
+    try {
+      const csvData = await new Promise((resolve, reject) => {
+        const results = [];
+        Papa.parse(stream, {
+          header: true,
+          step: (result) => {
+            results.push(result.data);
+          },
+          complete: () => {
+            resolve(results);
+          },
+          error: (error) => {
+            reject(error);
+          },
+        });
+      });
+      csvResults.push(csvData);
+    } catch (error) {
+      console.error("Error processing CSV file:", error);
+      res.status(500).send("Error processing CSV file.");
+      return;
+    }
+  }
+
+  const response = {
+    pdfResults,
+    csvResults,
+  };
+  res.json(response);
+});
+
+// Start your Express server...

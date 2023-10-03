@@ -1,0 +1,302 @@
+body {
+    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/002/018/590/small/abstract-festive-looping-background-free-video.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+
+.container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#upper-div {
+    width: 100%;
+}
+
+#mlaList {
+    background-color: white;
+    margin-top: 10px;
+    /* Add margin for spacing */
+    padding: 1px;
+}
+
+/* Search bar  stylesheet */
+
+#search-bar {
+    max-width: 400px;
+    /* Adjust the maximum width as needed */
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    /* Allows the elements to wrap to the next line */
+    justify-content: center;
+
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+#search-bar .input-group {
+    width: 100%;
+    border-radius: 3px;
+}
+
+#search-bar .input-group-prepend {
+    flex: 0 0 auto;
+
+    /* Prevent the button from growing */
+}
+
+#search-bar .form-control {
+    flex: 1 0 50%;
+    flex-grow: 1;
+    /* Allow the input to grow and fill the available space */
+    min-height: 32px;
+    /* Set a minimum height for the input */
+    padding: 6px;
+    /* Adjust the padding as needed */
+    margin-bottom: 10px;
+    /* Spacing between input and button */
+    overflow: hidden;
+    resize: auto;
+
+}
+
+#btnSearch {
+    padding: 0;
+    margin-left: -0.1em;
+    flex-grow: 0;
+    height: 35px;
+    z-index: 99;
+}
+
+#searchContainer {
+    z-index: 9999;
+}
+
+#btnSearchbg {
+    height: 37.5px;
+    background-color: white;
+    border-radius: 3px;
+    margin-left: -0.2em;
+}
+
+
+.swal2-title {
+    font-size: 10px;
+
+}
+
+/* Decrease text size for the message text */
+.swal2-content {
+    font-size: 4px;
+
+}
+
+/* Change text size for buttons */
+.swal2-confirm, .swal2-cancel {
+    font-size: 5px;
+
+}
+
+
+.swal2-icon {
+    font-size: 4px;
+
+}
+
+.swal2-confirm, .swal2-cancel {
+    font-size: 12px;
+
+    padding: 8px 16px;
+
+}
+
+/* Decrease box size */
+.swal2-popup {
+    max-width: 300px;
+
+    width: auto;
+
+    padding: 10px;
+
+}
+
+/* Override the z-index for Swal.fire */
+.swal2-container {
+    z-index: 9999 !important;
+    /* Adjust the value as needed */
+}
+
+
+@import "bourbon";
+
+@import url(https://fonts.googleapis.com/css?family=Lato:300|Oswald);
+
+.notifications {
+    position: absolute;
+    top: calc(50% + 1em);
+    left: calc(50%);
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.notification {
+    position: relative;
+    width: 20em;
+    padding: 0 1em;
+    font-size: 0.8em;
+    line-height: 3.125;
+    color: white;
+    cursor: pointer;
+    background-image: linear-gradient(to bottom right, red, yellow);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.notification:hover {
+    background-image: linear-gradient(to bottom right, rgb(255, 157, 0), rgb(185, 0, 0));
+    border-radius: 2%;
+    font-size: small;
+}
+
+.notification.notify:after {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 1.3333em;
+    width: 2em;
+    margin: 1.0833em 0;
+    border-radius: 50%;
+    font-size: 0.75em;
+    line-height: 2;
+    text-align: center;
+    box-shadow: 2px 2px 2px 1px rgba(145, 54, 54, 0.2);
+    animation: pulse 0.75s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 2px 2px 2px 1px rgba(145, 54, 54, 0.2);
+    }
+
+    25% {
+        box-shadow: 2px 2px 2px 1px rgba(156, 68, 68, 0.2);
+    }
+
+    50% {
+        box-shadow: 2px 2px 2px 1px rgba(98, 41, 41, 0.2);
+    }
+
+    75% {
+        box-shadow: 2px 2px 2px 1px rgba(123, 20, 20, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 0 0
+    }
+}
+
+/** PAGE STYLES **/
+@import url(https://fonts.googleapis.com/css?family=Lato:300|Oswald);
+
+h1 {
+    margin: 0;
+    padding: 1em;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    color: lighten(hsl(120, 70, 70), 30%);
+}
+
+/* Reset some default styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Style for the modal container */
+.modal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    /* Reduced the height to 10% */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    overflow-x: auto;
+    /* Enable horizontal scrolling */
+    overflow-y: hidden;
+    font-size: x-small;
+    color: #007BFF;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+/* Style for the scrolling container */
+.scrolling-container {
+    display: flex;
+    flex-direction: row;
+    /* Arrange cards horizontally */
+    overflow-x: auto;
+    /* Enable horizontal scrolling for cards */
+    overflow-y: hidden;
+    font-size: x-small;
+}
+
+/* Style for each card */
+.card-column {
+    width: 80%;
+    /* Adjust the card width as needed */
+    height: 100%;
+    /* Take full height of the container */
+    margin-right: 10px;
+    /* Adjust spacing between cards */
+    padding: 2px;
+    /* Added padding for content */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-size: x-small;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+/* Style for the close button */
+.btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #ff0000;
+    transition: color 0.3s ease;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+/* Style the close button on hover */
+.btn-close:hover {
+    color: #007BFF;
+}
+
+/* Style for card content */
+.card-content {
+    flex-grow: 1;
+    /* Expand to fill available space */
+    overflow-y: auto;
+    /* Enable vertical scrolling for card content */
+}

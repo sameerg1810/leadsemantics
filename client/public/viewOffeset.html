@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="height: 250px;">ADITYA checkbox</div>
+    <div id="content1" style="height: 50px;">scsc</div>
+    <div id="div1">
+        <div id="div11">
+            <h1 id="h1" value="1">1</h1>
+            <h1 id="h2" value="2">2</h1>
+            <h1 id="h3" value="3">3</h1>
+            <h1 id="h4" value="4">4</h1>
+            <h1 id="h5" value="5">5</h1>
+            <h1 id="h6" value="6">6</h1>
+            <h1 id="h7" value="7">7</h1>
+            <h1 id="h8" value="8">8</h1>
+            <h1 id="h9" value="9">9</h1>
+            <h1 id="h10" value="10">10</h1>
+            <h1 id="h11" value="11">11</h1>
+            <h1 id="h12" value="12">12</h1>
+            <h1 id="h13" value="13">13</h1>
+            <h1 id="h14" value="14">14</h1>
+            <h1 id="h15" value="15">15</h1>
+            <h1 id="h16" value="16">16</h1>
+            <h1 id="h17" value="17">17</h1>
+            <h1 id="h18" value="18">18</h1>
+            <h1 id="h19" value="19">19</h1>
+            <h1 id="h20" value="20">20</h1>
+        </div>
+        <div id="div12">
+            <button type="submit" onclick="migrate(event.target)" id="b1">1</button>
+            <button type="submit" onclick="migrate(event.target)" id="b2">2</button>
+            <button type="submit" onclick="migrate(event.target)" id="b3">3</button>
+            <button type="submit" onclick="migrate(event.target)" id="b4">4</button>
+            <button type="submit" onclick="migrate(event.target)" id="b5">5</button>
+            <button type="submit" onclick="migrate(event.target)" id="b6">6</button>
+            <button type="submit" onclick="migrate(event.target)" id="b7">7</button>
+            <button type="submit" onclick="migrate(event.target)" id="b8">8</button>
+            <button type="submit" onclick="migrate(event.target)" id="b9">9</button>
+            <button type="submit" onclick="migrate(event.target)" id="b10">10</button>
+            <button type="submit" onclick="migrate(event.target)" id="b11">11</button>
+            <button type="submit" onclick="migrate(event.target)" id="b12">12</button>
+            <button type="submit" onclick="migrate(event.target)" id="b13">13</button>
+            <button type="submit" onclick="migrate(event.target)" id="b14">14</button>
+            <button type="submit" onclick="migrate(event.target)" id="b15">15</button>
+            <button type="submit" onclick="migrate(event.target)" id="b16">16</button>
+            <button type="submit" onclick="migrate(event.target)" id="b17">17</button>
+            <button type="submit" onclick="migrate(event.target)" id="b18">18</button>
+            <button type="submit" onclick="migrate(event.target)" id="b19">19</button>
+            <button type="submit" onclick="migrate(event.target)" id="b20">20</button>
+        </div>
+    </div>
+    <div id="div2">
+    </div>
+    <style>
+        #div1 {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            width: 100%;
+        }
+
+        #div11 {
+            overflow: scroll;
+            height: 40vh;
+            width: 50%;
+            border: 1px solid rgb(173, 166, 190);
+        }
+
+        #div12 {
+            display: flex;
+            flex-direction: column;
+            height: 30vh;
+            width: 50%;
+            overflow: scroll;
+            flex-wrap: wrap;
+            border: 1px solid black;
+        }
+
+        #div12 button {
+            width: 100px;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        #div2 {
+            height: 500px;
+            border: 1px solid black;
+        }
+
+        #div11 h1 {
+
+            margin: 10px;
+        }
+
+        .back {
+            color: white;
+            background-color: aquamarine;
+        }
+
+        #content1 {
+            background-color: rgb(230, 189, 189);
+            font-size: 25px;
+            padding-left: 20px;
+        }
+    </style>
+    <script>let content1 = document.getElementById('content1')
+        function migrate(e) {
+            const parentDiv = document.getElementById('div11');
+            const childElements = parentDiv.getElementsByClassName('back');
+            for (let i = 0; i < childElements.length; i++) {
+                childElements[i].classList.remove('back');
+            }
+            let id = e.id;
+            let h1id = id.replace('b', 'h')
+            let h1tag = document.getElementById(h1id)
+            content1.innerHTML = h1tag.innerHTML
+            // console.log('959',h1tag.innerHTML)
+            h1tag.classList.add('back')
+            e.addEventListener('click', function () {
+                const rect = h1tag.getBoundingClientRect()
+                // console.log(h20)
+                // console.log(rect.top)
+                window.scrollTo(0, findPosition(content1))
+                div11.scrollTo(0,
+                    findPosition(h1tag)
+                );
+                findPosition(h1tag)
+                function findPosition(obj) {
+                    var currenttop = 0;
+                    console.log('obj-id=', obj.id)
+                    // console.log('infunct', obj.offsetParent)
+                    if (obj.offsetParent) {
+                        do {
+                            if (obj.id == h1id) {
+                                currenttop = obj.offsetTop - (document.getElementById("div1")).offsetTop
+                                console.log('parent', obj.offsetParent)
+                            } else {
+                                currenttop += obj.offsetTop;
+                                // console.log('obj offset=', obj.offsetTop)
+                                // console.log('crnt=', currenttop)
+                            }
+                        } while ((obj = obj.offsetParent));
+                        console.log(currenttop)
+                        return [currenttop];
+                    }
+                }
+                console.log('height=', h1tag.offsetHeight)
+            })
+        }
+    </script>
+</body>
+
+</html>

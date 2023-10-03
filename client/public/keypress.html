@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Check Keycodes for historyRedo and historyUndo</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* CSS for loading spinner */
+        #loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            /* Initially hidden */
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="keyCodeer">This is keycode</h1>
+    <div>
+        <textarea id="searchInput" rows="3" placeholder="Enter your search text (up to 200 characters)"></textarea>
+    </div>
+    <div>
+        <input type="radio" id="corpusRadio" name="searchType" value="corpus">
+        <label for="corpusRadio">Corpus</label>
+        <input type="radio" id="openSearchRadio" name="searchType" value="openSearch">
+        <label for="openSearchRadio">OpenSearch</label>
+    </div>
+    <button id="submitButton">Submit</button>
+    <div id="autocomplete-container">
+        <ul id="suggestions"></ul>
+    </div>
+    <div id="loading-spinner" class="hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const suggestions = document.getElementById('suggestions');
+
+        // Sample list of suggestions (replace with your data source)
+        const suggestionData = ['Apple', 'Banana', 'Cherry', 'Date', 'Grape', 'Lemon'];
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            const matchingSuggestions = suggestionData.filter(item => item.toLowerCase().includes(query));
+            renderSuggestions(matchingSuggestions);
+        });
+
+        function renderSuggestions(suggestionList) {
+            suggestions.innerHTML = '';
+            suggestionList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                li.addEventListener('click', () => {
+                    searchInput.value = item;
+                    suggestions.innerHTML = '';
+                });
+                suggestions.appendChild(li);
+            });
+        }
+        const keyCodes = document.getElementById('keyCodeer');
+        window.addEventListener('load', function () {
+            document.addEventListener('keydown', function (event) {
+                if ((event.key === 'z' && event.ctrlKey && !event.shiftKey) || (event.key === 'y' && event.ctrlKey)) {
+                    if (event.key === 'z') {
+                        // "Ctrl + Z" for historyUndo
+                        keyCodes.innerHTML = event.keyCode;
+                        console.log('Keycode for historyUndo: ' + event.keyCode);
+                    } else if (event.key === 'y') {
+                        // "Ctrl + Y" for historyRedo
+                        console.log('Keycode for historyRedo: ' + event.keyCode);
+                        keyCodes.innerHTML = event.keyCode;
+                    }
+                }
+            });
+        });
+
+        //---------------------------------------------------------------------------------------------------------------------
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+            const corpusRadio = document.getElementById('corpusRadio');
+            const openSearchRadio = document.getElementById('openSearchRadio');
+            const submitButton = document.getElementById('submitButton');
+            let isSearchDisabled = false;
+
+            // Function to adjust textarea height based on content
+            function adjustTextareaHeight() {
+                searchInput.style.height = 'auto'; // Reset the height
+                searchInput.style.height = searchInput.scrollHeight + 'px'; // Set the height based on content
+            }
+
+            // Function to validate characters (allow only alphanumeric and spaces)
+            function validateInput(input) {
+                const regex = /^[A-Za-z0-9\s]+$/; // Alphanumeric and spaces allowed
+                return regex.test(input);
+            }
+
+            searchInput.addEventListener('input', function () {
+                let inputText = searchInput.value;
+                const characterLimit = 200;
+
+                // Validate and sanitize the input (remove disallowed characters)
+                inputText = inputText.replace(/[^A-Za-z0-9\s]+/g, '');
+
+                if (inputText.length > characterLimit) {
+                    Swal.fire('Character Limit Exceeded', 'You have reached the maximum character limit (200 characters).', 'warning');
+                    inputText = inputText.substring(0, characterLimit);
+                    isSearchDisabled = true;
+                } else {
+                    isSearchDisabled = false;
+                }
+
+                searchInput.value = inputText;
+                adjustTextareaHeight(); // Adjust the textarea height
+            });
+
+            searchInput.addEventListener('keydown', function (event) {
+                // Handle Enter key press
+                if (event.key === 'Enter' && !event.shiftKey) {
+                    event.preventDefault(); // Prevent form submission
+                    submitButton.click(); // Trigger the submit button click
+                }
+
+                // Handle Backspace key press when the input is empty
+                if (event.key === 'Backspace' && searchInput.value === '') {
+                    event.preventDefault(); // Prevent going back in history or leaving the page
+                }
+            });
+
+            submitButton.addEventListener('click', function () {
+                if (isSearchDisabled) {
+                    Swal.fire('Search Bar Disabled', 'You have reached the maximum character limit. Click OK to enable the search bar.', 'warning')
+                        .then((result) => {
+                            if (result.isConfirmed) {
+                                isSearchDisabled = false;
+                                searchInput.removeAttribute('disabled');
+                            }
+                        });
+                } else {
+                    // Implement your search functionality here
+                    const searchText = searchInput.value;
+                    const searchType = corpusRadio.checked ? 'Corpus' : (openSearchRadio.checked ? 'OpenSearch' : '');
+                    console.log('Search Text:', searchText);
+                    console.log('Search Type:', searchType);
+
+                    // You can insert code to perform the search operation here
+                }
+            });
+
+            // Initial adjustment of textarea height
+            adjustTextareaHeight();
+        });
+        //------------------------------------------------------------------------------------------------------------------------
+        function performSearch(query) {
+            fetch('your-search-api-url?q=' + encodeURIComponent(query))
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Process search results
+                    displaySearchResults(data);
+                })
+                .catch(error => {
+                    // Handle network error
+                    console.error('Network error:', error);
+                    displayErrorMessage('Network error occurred. Please try again later.');
+                });
+        }
+
+        function displayErrorMessage(message) {
+            // Display error message to the user (e.g., in a modal or alert)
+            alert(message);
+        }
+
+        // Add this function to show the loading spinner
+        function showLoadingSpinner() {
+            const loadingSpinner = document.getElementById('loading-spinner');
+            loadingSpinner.style.display = 'block';
+        }
+
+        // Add this function to hide the loading spinner
+        function hideLoadingSpinner() {
+            const loadingSpinner = document.getElementById('loading-spinner');
+            loadingSpinner.style.display = 'none';
+        }
+
+        // Modify your submitButton click event handler
+        submitButton.addEventListener('click', function () {
+            if (isSearchDisabled) {
+                // If search is disabled, show a message
+                Swal.fire('Search Bar Disabled', 'You have reached the maximum character limit. Click OK to enable the search bar.', 'warning')
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            isSearchDisabled = false;
+                            searchInput.removeAttribute('disabled');
+                        }
+                    });
+            } else {
+                // If search is not disabled, perform the search
+                const searchText = searchInput.value;
+                const searchType = corpusRadio.checked ? 'Corpus' : (openSearchRadio.checked ? 'OpenSearch' : '');
+
+                // Show loading spinner during the search
+                showLoadingSpinner();
+
+                // Simulate a delay (replace this with your actual search logic)
+                setTimeout(function () {
+                    // Hide the loading spinner when the search is complete
+                    hideLoadingSpinner();
+
+                    // Implement your search functionality here
+                    console.log('Search Text:', searchText);
+                    console.log('Search Type:', searchType);
+                }, 2000); // Simulated 2-second delay; replace with your actual search processing time
+            }
+        });
+
+    </script>
+</body>
+
+</html>

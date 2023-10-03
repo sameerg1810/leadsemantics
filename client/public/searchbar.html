@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Search</title>
+    <style>
+        .error-popup {
+            position: absolute;
+            background-color: #ff0000;
+            color: #fff;
+            padding: 5px;
+            border-radius: 3px;
+            transition: opacity 0.5s;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid black;
+            width: 50%;
+            height: 3em;
+            border-radius: 3px;
+            overflow: hidden;
+
+        }
+
+        textarea {
+            width: 100%;
+            /* Use 100% width for the textarea */
+            height: 2em;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            resize: none;
+            min-height: 20px;
+            border: none;
+            outline: none;
+            overflow: hidden;
+            font-size: 15px;
+        }
+
+        #searchBtn {
+            margin: 2px;
+            min-width: 10px;
+            cursor: pointer;
+            background-color: #928888;
+
+            color: #fff;
+
+            border: none;
+            border-radius: 3px;
+
+            padding-right: 10px;
+
+        }
+
+        /* Hover effect for the button */
+        #searchBtn:hover {
+            background-color: #0056b3;
+            font-size: large;
+        }
+
+        textarea:hover {
+            background-color: rgb(72, 57, 74, 0.5)
+        }
+
+        #charCount {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Web Search</h1>
+    <div class="dialogue"></div>
+    <div class="search-container">
+        <textarea id="query" placeholder="Enter your search query" maxlength="150" onfocus="focusFunction()"></textarea>
+        <button id="searchBtn" onclick="searchWeb()">Search</button>
+        <span id="charCount">0/150</span>
+    </div>
+
+
+    <script>function searchWeb() {
+            const query = document.getElementById('query').value;
+            const resultsDiv = document.getElementById('results');
+
+
+            // Clear previous results
+            resultsDiv.innerHTML = '';
+
+            // Split the query into lines (e.g., 50 characters per line)
+            const maxLineLength = 50;
+            const lines = [];
+            for (let i = 0; i < query.length; i += maxLineLength) {
+                lines.push(query.slice(i, i + maxLineLength));
+            }
+
+            // Create a list of search results for each line
+            lines.forEach((line, index) => {
+                const searchResult = document.createElement('p');
+                searchResult.textContent = `Search result ${index + 1}: ${line}`;
+                resultsDiv.appendChild(searchResult);
+            });
+        }
+
+
+        //string length-----------------------------------------------------------------
+        document.getElementById('query').addEventListener('input', function () {
+            const schArea = document.getElementById('query');
+            const charCount = document.getElementById('charCount');
+            const stringLength = document.getElementById('query').value;
+            charCount.textContent = `${stringLength.length}/150`;
+
+            if (stringLength.length >= 150) {
+
+                schArea.style.backgroundColor = 'red';// Use '>= 150' to catch exactly 150 characters as well
+                const errorMess = document.createElement("p"); // Create the 'p' element
+                errorMess.setAttribute('class', 'errorMess');
+                const message = 'out of charecter limit';// Set the class attribute
+                showErrorPopup(message);
+            } else {
+                schArea.style.backgroundColor = 'white';
+                // Remove the error message if characters are within the limit
+                const errorMess = document.querySelector('.errorMess');
+                if (errorMess) {
+                    errorMess.remove();
+                }
+            }
+        });
+
+        //popup on string length increase_______________________________________
+        function showErrorPopup(message) {
+            console.log("showErrorPopup is now working");
+            const errorPopup = document.createElement("div");
+            errorPopup.classList.add('error-popup');
+            errorPopup.textContent = message;
+
+            const schCont = document.querySelector('.dialogue');
+            schCont.appendChild(errorPopup);
+
+            // Show the error popup
+            setTimeout(() => {
+                errorPopup.style.opacity = 1;
+                errorPopup.style.borderColor = "#6d78ff";
+            }, 10);
+
+            // Hide the error popup after 5 seconds
+            setTimeout(() => {
+                errorPopup.style.opacity = 0;
+                setTimeout(() => {
+                    errorPopup.remove();
+                }, 500); // Remove the element after fading out
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+
+
+        function focusFunction() {
+            document.getElementById("query").style.fontSize = "5em";
+        }
+    </script>
+</body>
+
+</html>

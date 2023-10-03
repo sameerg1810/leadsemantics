@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Adjusting Search Bar</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: stretch;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 5px;
+            font-size: 16px;
+            outline: none;
+            resize: none;
+            overflow-y: hidden;
+        }
+
+        .search-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+            position: sticky;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="search-bar">
+        <textarea class="search-input" placeholder="Search Anything" id="searchInput"></textarea>
+        <button class="search-btn" id="searchButton">Search</button>
+    </div>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+
+        // Function to handle search
+        function performSearch(query) {
+            // You can implement your search logic here
+            alert(`Searching for: ${query}`);
+        }
+
+        // Click event listener for the search button
+        searchButton.addEventListener('click', () => {
+            const inputValue = searchInput.value.trim(); // Trim to remove leading/trailing spaces
+
+            if (inputValue === '') {
+                alert('Please enter a valid search query.');
+                return;
+            }
+
+            performSearch(inputValue);
+        });
+
+        // Input event listener to trigger search when Enter is pressed
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const inputValue = searchInput.value.trim(); // Trim to remove leading/trailing spaces
+
+                if (inputValue === '') {
+                    alert('Please enter a valid search query.');
+                    return;
+                }
+
+                performSearch(inputValue);
+            }
+        });
+
+        // Input event listener to adjust the height of the search bar
+        searchInput.addEventListener('input', () => {
+            const maxLength = 30; // Maximum number of characters per line
+
+            if (searchInput.scrollHeight > searchInput.clientHeight) {
+                searchInput.style.height = searchInput.scrollHeight + 'px';
+            } else if (searchInput.value.length <= maxLength) {
+                searchInput.style.height = 'auto';
+            }
+        });
+    </script>
+</body>
+
+</html>

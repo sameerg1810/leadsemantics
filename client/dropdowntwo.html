@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Add some basic CSS to style your dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="string-replace">String replace</h1>
+    <textarea id="input-text" class="textarea"></textarea>
+    <button id="changer">Change String</button>
+    <h3 id="answer"></h3>
+
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+        <div id="toggler" class="dropdown-content" aria-expanded="false">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+    </div>
+
+    <script>
+        let textarea = document.getElementById("input-text");
+        let answer = document.getElementById("answer");
+        let changer = document.getElementById("changer");
+
+        changer.addEventListener("click", function () {
+            answer.textContent = "";
+            let input = textarea.value.toLowerCase(); // Convert input to lowercase for easier comparison
+            const vowels = ["a", "e", "i", "o", "u"];
+            let vowelIndices = [];
+            if (input.length >= 2) {
+                for (let i = 0; i < input.length; i++) {
+                    if (vowels.includes(input[i])) {
+                        vowelIndices.push(i);
+                    }
+                }
+
+                if (vowelIndices.length === 2) {
+                    // Swap the positions of the first two vowels
+                    let InputArray = input.split('');
+                    let temp = InputArray[vowelIndices[0]];
+                    InputArray[vowelIndices[0]] = InputArray[vowelIndices[1]];
+                    InputArray[vowelIndices[1]] = temp;
+                    let output = InputArray.join('');
+                    console.log("this is output", output);
+                    answer.textContent = output;
+                } else {
+                    answer.textContent = "At least two vowels are required for swapping.";
+                }
+            } else {
+                answer.textContent = "Invalid input. Input should have at least two characters.";
+            }
+        });
+
+        // Toggling operation
+        function myFunction() {
+            var dropdownContent = document.getElementById("toggler");
+            dropdownContent.classList.toggle("show");
+            var isExpanded = dropdownContent.getAttribute("aria-expanded") === "true";
+            dropdownContent.setAttribute("aria-expanded", isExpanded ? "false" : "true");
+        }
+    </script>
+</body>
+
+</html>

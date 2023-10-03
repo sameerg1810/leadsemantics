@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        #imageContainer {
+            display: none;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            z-index: 9999;
+            box-sizing: border-box;
+            overflow-x: auto;
+            white-space: nowrap;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+        }
+
+        button {
+            background-color: purple;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .navbar {
+            background-color: #1877f2 !important;
+            color: white !important;
+            text-align: center !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 9999 !important;
+            padding: 5px 0 !important;
+            width: 100% !important;
+            left: 0;
+        }
+
+        .parent-div {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: row;
+            gap: 0;
+            border: 1px solid black;
+            padding: 5px;
+            box-sizing: border-box;
+            min-width: fit-content;
+            overflow-x: auto;
+        }
+
+        #child-1,
+        #child-2 {
+            flex: 1;
+            outline: 2px solid #ccc;
+            outline-offset: -2px;
+            padding: 15px;
+            box-sizing: border-box;
+            max-width: 100%;
+            min-width: 500px;
+        }
+
+        .child-div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #imageContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #imageContainer img {
+            margin: 1rem;
+            width: 5rem;
+            height: 5rem;
+        }
+
+        #closeButton {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader">
+        <div class="navbar">
+            <ul>
+                <li>LEADS-SEMANTICS</li>
+            </ul>
+        </div>
+        <div class="parent-div">
+            <!-- Child Div 1 -->
+            <div class="child-div" id="child-1">
+                <h1>TextToDistil Epsilon 1.5 years Opt-In</h1>
+                <input type="checkbox" id="check1" name="check1" value="Image1">
+                <label for="check1"> Image 1</label><br>
+                <input type="checkbox" id="check2" name="check2" value="Image2">
+                <label for="check2"> Image 2</label><br>
+                <input type="checkbox" id="check3" name="check3" value="Image3">
+                <label for="check3"> Image 3</label><br>
+                <input type="checkbox" id="check4" name="check4" value="Image4">
+                <label for="check4"> Image 4</label><br>
+            </div>
+            <div class="child-div" id="child-2">
+                <!-- Add the close button here -->
+                <button id="closeButton" style="display: none;">Close</button>
+                <button id="showButton" disabled>Show</button>
+                <div id="imageContainer"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var checkboxes = document.querySelectorAll('input[type=checkbox]');
+        var showButton = document.getElementById('showButton');
+        var closeButton = document.getElementById('closeButton');
+        var imageContainer = document.getElementById('imageContainer');
+        var images = []; // Array to store the image elements
+
+        function updateButton() {
+            var checkedCount = Array.from(checkboxes).filter(c => c.checked).length;
+            showButton.textContent = `Show (${checkedCount})`;
+            showButton.disabled = checkedCount === 0;
+        }
+
+        checkboxes.forEach(function (checkbox, index) {
+            checkbox.addEventListener('change', function () {
+                updateButton();
+
+                if (checkbox.checked) {
+                    // Clear the imageContainer
+                    imageContainer.innerHTML = '';
+
+                    // Create and append the image for the selected checkbox
+                    var img = document.createElement('img');
+                    img.src = imageSources[index];
+                    imageContainer.appendChild(img);
+
+                    // Remove previously added images from the images array
+                    images.forEach(function (addedImg) {
+                        imageContainer.removeChild(addedImg);
+                    });
+                    images = [img]; // Replace the images array with the new image
+                } else {
+                    // Remove the image when the checkbox is unchecked
+                    var imgToRemove = images[0];
+                    if (imgToRemove) {
+                        imageContainer.removeChild(imgToRemove);
+                        images = []; // Clear the images array
+                    }
+                }
+            });
+        });
+
+        const imageSources = [
+            "https://pbs.twimg.com/profile_images/1605297940242669568/q8-vPggS_400x400.jpg",
+            "https://lh3.googleusercontent.com/g4LSCiEc-F9muGnxxmu8pQpsbmDt0FUIYpicdDuuiXqzk8ygp_xGNNSTmCNfC0uTKWZO1AjlcseZ01j4rxa8aRlbrztLH2cw60m71A=w1000",
+            "https://cdn.telanganatoday.com/wp-content/uploads/2022/04/Google-multisearch-tool-to-help-users-search-with-photos.jpg",
+            "https://developer.android.com/static/images/about/versions/14/Android-Logo.png"
+        ];
+
+        showButton.addEventListener('click', function () {
+            // Show the close button and hide the show button
+
+            closeButton.style.display = 'block';
+
+            imageContainer.style.display = 'block';
+
+
+            checkboxes.forEach(function (checkbox, index) {
+                if (checkbox.checked) {
+                    var img = document.createElement('img');
+                    img.src = imageSources[index];
+                    console.log("Image URL at index " + index + ": " + img.src);
+                    imageContainer.appendChild(img);
+                }
+            });
+        });
+
+        // Add a click event listener to the close button
+        closeButton.addEventListener('click', function () {
+            // Hide the close button and show the show button
+
+            showButton.style.display = 'none';
+
+            // Hide the image container
+
+        });
+
+        // Initial button update
+        updateButton();
+    </script>
+</body>
+
+</html>

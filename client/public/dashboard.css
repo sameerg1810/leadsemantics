@@ -1,0 +1,450 @@
+.container {
+    text-shadow: 0.1px 0.1px 0.1px #252424, 0.2px 0.2px 0.2px #000000, 0.3px 0.3px 0.3px #000, 0.4px 0.4px 0.4px #000, 0.5px 0.5px 0.5px #000;
+    transform: rotate(-1deg);
+    perspective: 100px;
+}
+
+.btn:hover {
+    animation: effect 0.4s infinite;
+}
+
+@keyframes effect {
+    0% {
+        transform: translateX(0px) rotate(0deg);
+    }
+
+    20% {
+        transform: translateX(-4px) rotate(-4deg);
+    }
+
+    40% {
+        transform: translateX(-2px) rotate(-2deg);
+    }
+
+    60% {
+        transform: translateX(4px) rotate(4deg);
+    }
+
+    80% {
+        transform: translateX(2px) rotate(2deg);
+    }
+
+    100% {
+        transform: translateX(0px) rotate(0deg);
+    }
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+/* Style for the spinner */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border: 0.25rem solid #f3f3f3;
+    border-top: 0.25rem solid #3498db;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Style for the popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem;
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.popup button {
+    margin-top: 1rem;
+}
+
+#popup-win.show {
+    display: flex;
+    animation: bounce 1s ease-in-out;
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#data-table {
+    width: 100%;
+}
+
+
+.pagination {
+    display: inline-block;
+}
+
+/* .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+
+} */
+
+/* Define a CSS class for the deleted message */
+.deleted-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+    text-align: center;
+    padding: 20px;
+    border: 2px solid red;
+    border-radius: 5px;
+    background-color: #f8d7da;
+    /* Light red background color */
+}
+
+
+.edit-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.alertWindow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10;
+    display: none;
+    /* Initially, hide the alert window */
+    animation: wiggle 2s ease-in-out;
+    /* Apply the wiggle animation for 2 seconds */
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.alertWindow.active {
+    display: block;
+}
+
+@keyframes wiggle {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(10px);
+    }
+
+    60% {
+        transform: translateX(-10px);
+    }
+
+    80% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+.popup-win {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.popup-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.popup-message {
+    font-size: 16px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.alertWindow {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.alertWindow.active {
+    opacity: 1;
+}
+
+/* Add some margin and padding to the row container */
+.row {
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    /* Add this line */
+    overflow-x: auto;
+    /* Add this line */
+    overflow-y: hidden;
+    /* Add this line */
+}
+
+/* Add some shadow and border radius to the card */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+/* Add some transition and transform effects to the card */
+
+
+/* Add some color and font style to the button */
+.btn {
+    color: white;
+    font-weight: bold;
+}
+
+/* Add some hover effects to the button */
+.btn:hover {
+    filter: brightness(90%);
+}
+
+/* Add some color and font style to the card title */
+.card-title {
+    color: #333333;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Add some color and font style to the card text */
+.card-text {
+    color: #666666;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.checkbox {
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.TableButton {
+    font-size: 10px;
+    line-height: 1;
+}
+
+/* Custom styles for the Swal2 dialog container */
+.custom-popup-class {
+    height: 300px;
+    /* Set the desired height */
+    width: 500px;
+    /* Set the desired width */
+}
+
+
+.swal2-title {
+    font-size: 25px;
+
+}
+
+/* Decrease text size for the message text */
+.swal2-content {
+    font-size: 15px;
+
+}
+
+/* Change text size for buttons */
+.swal2-confirm, .swal2-cancel {
+    font-size: 12px;
+
+}
+
+
+.swal2-icon {
+    font-size: 10px;
+
+}
+
+.swal2-confirm, .swal2-cancel {
+    font-size: 5px;
+
+    padding: 4px 4px;
+
+}
+
+/* Decrease box size */
+.swal2-popup {
+    max-width: 300px;
+
+    width: auto;
+
+    padding: 10px;
+
+}
+
+/* search a State---------------------------------------------------------------------------------------------------------------------------- */
+
+#search-Pop {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5%;
+    padding: 20px;
+    width: 30%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+
+
+#state-Drop {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5%;
+    padding: 20px;
+    width: 30%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.form-outline {
+    margin-bottom: 20px;
+    box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+/* Dropdown specific styles */
+.dropdown-button {
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.dropdown-list {
+    position: absolute;
+    display: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+/* CSS for search suggestions */
+#search-suggestions {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+#search-suggestions ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#search-suggestions li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+#search-suggestions li:hover {
+    background-color: #f2f2f2;
+}
+
+/* Style for highlighting matching text */
+.match {
+    font-weight: bold;
+    color: #007bff;
+    display: block;
+}
+
+.no-match {
+    display: none
+}
+
+/* #userNotification Window */

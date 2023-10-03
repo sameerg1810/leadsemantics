@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>LEADS SEMANTICS</title>
+    <style>
+        /* Global Styles */
+
+        /* Apply a CSS Reset */
+        body {
+            font-family: Arial, sans-serif;
+            /* Hide horizontal overflow */
+            margin: 0;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* Set your desired fixed width */
+            max-width: 100%;
+            height: 100%;
+            z-index: 9999;
+            box-sizing: border-box;
+            overflow-x: auto;
+            white-space: nowrap;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Media query for larger screens */
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #1877f2 !important;
+            color: white !important;
+            text-align: center !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 9999 !important;
+            padding: 5px 0 !important;
+            width: 100% !important;
+            left: 0;
+            /* Add this line */
+        }
+
+
+        /* Parent Div */
+        .parent-div {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: row;
+            /* Ensure child divs stack vertically */
+            gap: 0;
+            border: 1px solid black;
+            padding: 5px;
+            /* Add padding to the parent div */
+            box-sizing: border-box;
+            min-width: fit-content;
+            overflow-x: auto;
+
+        }
+
+        /* Child Div 1 Styles */
+        #child-1,
+        #child-2 {
+            flex: 1;
+            outline: 2px solid #ccc;
+            outline-offset: -2px;
+            padding: 15px;
+            /*gave some minimum width to child and box-sizing*/
+            box-sizing: border-box;
+            max-width: 100%;
+            min-width: 500px;
+        }
+
+        /* Search Bar Styles */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            max-width: 500px;
+            margin-bottom: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 5px;
+            font-size: 16px;
+            outline: none;
+            resize: none;
+            overflow-y: hidden;
+            min-height: 40px;
+        }
+
+        .search-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Radio Button Styles */
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        /* Button Styles */
+        #submitButton {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #submitButton:hover {
+            background-color: #0a5fa0;
+        }
+
+
+
+        /* Style for Radio Buttons */
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div class="loader" id="loader">
+        <div class="navbar">
+            <ul>
+                <li>LEADS-SEMANTICS</li>
+                <!-- Add other navigation options here -->
+            </ul>
+        </div>
+
+        <!-- Parent Div -->
+        <div class="parent-div">
+            <!-- Child Div 1 -->
+
+            <div class="child-div" id="child-1">
+                <h2>Knowledge Search</h2>
+                <div id="dropDownContainer"><label for="dropdown">Select an option:</label>
+                    <select id="dropdown">
+                        <option value="option1">esg 1</option>
+                        <option value="option2">esg 2</option>
+                        <option value="option3">esg 3</option>
+                    </select>
+
+                    <select id="dropDown1">
+                        <option value="option1">esg 4</option>
+                        <option value="option2">esg 5</option>
+                        <option value="option3">esg 6</option>
+                    </select>
+
+                    <select id="dropDown2">
+                        <option value="option1">esg 7</option>
+                        <option value="option2">esg 8</option>
+                        <option value="option3">esg 9</option>
+                    </select>
+                </div>
+                <div id="radios">
+                    <input type="radio" id="corpusRadio" name="searchType" value="corpus">
+                    <label for="corpusRadio">Corpus</label>
+                    <input type="radio" id="openSearchRadio" name="searchType" value="openSearch">
+                    <label for="openSearchRadio">OpenSearch</label>
+                </div>
+                <div id="radios">
+                    <input type="radio" id="playGroundRadio" name="searchType" value="playGround">
+                    <label for="openSearchRadio">Play ground</label>
+                    <input type="radio" id="signalsRadio" name="searchType" value="signals">
+                    <label for="openSearchRadio">Signal</label>
+                </div>
+
+                <div class="search-bar">
+                    <textarea id="searchInput" rows="3" placeholder="Enter your search text (up to 200 characters)"
+                        class="search-input"></textarea>
+                </div>
+
+                <button id="submitButton" class="search-btn">Submit</button>
+
+                <div id="loading-spinner" class="hidden">
+                    <div class="spinner"></div>
+                </div>
+                <div id="autocomplete-container">
+                    <ul id="suggestions"></ul>
+                </div>
+            </div>
+
+            <!-- Child Div 2 -->
+            <div class="child-div" id="child-2">
+                <h6 style="text-align: center;background-color: #3498db;width:100%;margin-top:0;">search results</h6>
+
+                <p id="charCount">This paragraph tag will give Character Count: 0</p>
+                <p id="keyCode">This paragraph tag will give Key Code: </p>
+                <p id="keyName">This paragraph tag will give Key Name: </p>
+                <p id="stringCount">This paragraph tag will give String Count:</p>
+
+                <!-- Add content for child 2 here -->
+            </div>
+        </div>
+    </div>
+    <script>
+
+        const searchInput = document.getElementById('searchInput');
+        const suggestions = document.getElementById('suggestions');
+        const submitButton = document.getElementById('submitButton');
+        const corpusRadio = document.getElementById('corpusRadio');
+        const openSearchRadio = document.getElementById('openSearchRadio');
+        const dropDownContainer = document.getElementById('dropDownContainer');
+        const dropDown1 = document.getElementById('dropDown1');
+        const dropDown2 = document.getElementById('dropDown2');
+
+        // Sample list of suggestions (replace with your data source)
+
+
+        corpusRadio.addEventListener('click', function () {
+            openSearchRadio.checked = true;
+            dropDownContainer.style.display = 'block';
+        });
+
+        // Add dropdown options dynamically
+        for (let i = 1; i <= 6; i++) {
+            const option1 = document.createElement('option');
+            option1.value = `esg${i}`;
+            option1.textContent = `ESG ${i}`;
+            dropDown1.appendChild(option1);
+
+            const option2 = document.createElement('option');
+            option2.value = `esg${i}`;
+            option2.textContent = `ESG ${i}`;
+            dropDown2.appendChild(option2);
+        }
+
+        // Hide dropdowns initially
+        dropDownContainer.style.display = 'none';
+
+        // Add event listener for dropdown selection
+        dropDown1.addEventListener('change', function () {
+            const selectedValue = dropDown1.value;
+            if (selectedValue) {
+                searchInput.style.display = 'block';
+                charCountDisplay.style.display = 'block';
+                stringCountDisplay.style.display = 'block';
+            }
+        });
+
+        dropDown2.addEventListener('change', function () {
+            const selectedValue = dropDown2.value;
+            if (selectedValue) {
+                searchInput.style.display = 'block';
+                charCountDisplay.style.display = 'block';
+                stringCountDisplay.style.display = 'block';
+            }
+        });
+
+        // Sample list of suggestions (replace with your data source)
+        const suggestionData = ['Apple', 'Banana', 'Cherry', 'Date', 'Grape', 'Lemon'];
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            const matchingSuggestions = suggestionData.filter(item => item.toLowerCase().includes(query));
+            renderSuggestions(matchingSuggestions);
+        });
+
+        function renderSuggestions(suggestionList) {
+            suggestions.innerHTML = '';
+            suggestionList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                li.addEventListener('click', () => {
+                    searchInput.value = item;
+                    suggestions.innerHTML = '';
+                });
+                suggestions.appendChild(li);
+            });
+        }
+
+        submitButton.addEventListener('click', function () {
+            const searchText = searchInput.value;
+            const searchType = document.querySelector('input[name="searchType"]:checked');
+
+            // Check if a radio button is selected
+            if (!searchType) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to continue',
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                })
+                return; // Prevent further execution
+            }
+
+            // Check for character limit
+            const characterLimit = 200;
+            if (searchText.length > characterLimit) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to continue',
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                })
+                return; // Prevent further execution
+            }
+
+            // Implement your search functionality here
+            console.log('Search Text:', searchText);
+            console.log('Search Type:', searchType.value);
+
+            // You can insert code to perform the search operation here
+        });
+        //charecter count and string count___________________________________________________________________________
+        const charCountDisplay = document.getElementById('charCount');
+        const stringCountDisplay = document.getElementById('stringCount');
+
+        // Sample list of suggestions (replace with your data source)
+
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            const matchingSuggestions = suggestionData.filter(item => item.toLowerCase().includes(query));
+            renderSuggestions(matchingSuggestions);
+
+            // Update character and string counts
+            const characterCount = query.length;
+            const stringCount = query.split(' ').filter(Boolean).length; // Count non-empty words
+            charCountDisplay.textContent = `Character Count: ${characterCount}`;
+            stringCountDisplay.textContent = `String Count: ${stringCount}`;
+        });
+
+        function renderSuggestions(suggestionList) {
+            suggestions.innerHTML = '';
+            suggestionList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                li.addEventListener('click', () => {
+                    searchInput.value = item;
+                    suggestions.innerHTML = '';
+                });
+                suggestions.appendChild(li);
+            });
+        }
+
+        submitButton.addEventListener('click', function () {
+            const searchText = searchInput.value;
+            const searchType = document.querySelector('input[name="searchType"]:checked');
+
+            // Check if a radio button is selected
+            if (!searchType) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please select a search type',
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                })
+                return; // Prevent further execution
+            }
+
+            // Check for character limit
+            const characterLimit = 200;
+            if (searchText.length > characterLimit) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Search text exceeds character limit',
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                })
+                return; // Prevent further execution
+            }
+
+            // Implement your search functionality here
+            console.log('Search Text:', searchText);
+            console.log('Search Type:', searchType.value);
+
+            // You can insert code to perform the search operation here
+        });
+
+        //---------------------------------------------------------------------------------------------------------------------
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+            const corpusRadio = document.getElementById('corpusRadio');
+            const openSearchRadio = document.getElementById('openSearchRadio');
+            const submitButton = document.getElementById('submitButton');
+            let isSearchDisabled = false;
+
+            // Function to adjust textarea height based on content
+            function adjustTextareaHeight() {
+                searchInput.style.height = 'auto'; // Reset the height
+                searchInput.style.height = searchInput.scrollHeight + 'px'; // Set the height based on content
+            }
+
+            // Function to validate characters (allow only alphanumeric and spaces)
+            function validateInput(input) {
+                const regex = /^[A-Za-z0-9\s]+$/; // Alphanumeric and spaces allowed
+                return regex.test(input);
+            }
+
+            searchInput.addEventListener('input', function () {
+                let inputText = searchInput.value;
+                const characterLimit = 200;
+
+                // Validate and sanitize the input (remove disallowed characters)
+                inputText = inputText.replace(/[^A-Za-z0-9\s]+/g, '');
+
+                if (inputText.length > characterLimit) {
+                    Swal.fire('Character Limit Exceeded', 'You have reached the maximum character limit (200 characters).', 'warning');
+                    inputText = inputText.substring(0, characterLimit);
+                    isSearchDisabled = true;
+                } else {
+                    isSearchDisabled = false;
+                }
+
+                searchInput.value = inputText;
+                adjustTextareaHeight(); // Adjust the textarea height
+            });
+
+            searchInput.addEventListener('keydown', function (event) {
+                // Handle Enter key press
+                if (event.key === 'Enter' && !event.shiftKey) {
+                    event.preventDefault(); // Prevent form submission
+                    submitButton.click(); // Trigger the submit button click
+                }
+
+                // Handle Backspace key press when the input is empty
+                if (event.key === 'Backspace' && searchInput.value === '') {
+                    event.preventDefault(); // Prevent going back in history or leaving the page
+                }
+            });
+
+            submitButton.addEventListener('click', function () {
+                if (isSearchDisabled) {
+                    Swal.fire('Search Bar Disabled', 'You have reached the maximum character limit. Click OK to enable the search bar.', 'warning')
+                        .then((result) => {
+                            if (result.isConfirmed) {
+                                isSearchDisabled = false;
+                                searchInput.removeAttribute('disabled');
+                            }
+                        });
+                } else {
+                    // Implement your search functionality here
+                    const searchText = searchInput.value;
+                    const searchType = corpusRadio.checked ? 'Corpus' : (openSearchRadio.checked ? 'OpenSearch' : '');
+                    console.log('Search Text:', searchText);
+                    console.log('Search Type:', searchType);
+
+                    // You can insert code to perform the search operation here
+                }
+            });
+
+            // Initial adjustment of textarea height
+            adjustTextareaHeight();
+        });
+        //------------------------------------------------------------------------------------------------------------------------
+        function performSearch(query) {
+            fetch('your-search-api-url?q=' + encodeURIComponent(query))
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Process search results
+                    displaySearchResults(data);
+                })
+                .catch(error => {
+                    // Handle network error
+                    console.error('Network error:', error);
+                    displayErrorMessage('Network error occurred. Please try again later.');
+                });
+        }
+
+        function displayErrorMessage(message) {
+            // Display error message to the user (e.g., in a modal or alert)
+            alert(message);
+        }
+
+        // Add this function to show the loading spinner
+        function showLoadingSpinner() {
+            const loadingSpinner = document.getElementById('loading-spinner');
+            loadingSpinner.style.display = 'block';
+        }
+
+        // Add this function to hide the loading spinner
+        function hideLoadingSpinner() {
+            const loadingSpinner = document.getElementById('loading-spinner');
+            loadingSpinner.style.display = 'none';
+        }
+
+        // Modify your submitButton click event handler
+        submitButton.addEventListener('click', function () {
+            if (isSearchDisabled) {
+                // If search is disabled, show a message
+                Swal.fire('Search Bar Disabled', 'You have reached the maximum character limit. Click OK to enable the search bar.', 'warning')
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            isSearchDisabled = false;
+                            searchInput.removeAttribute('disabled');
+                        }
+                    });
+            } else {
+                // If search is not disabled, perform the search
+                const searchText = searchInput.value;
+                const searchType = corpusRadio.checked ? 'Corpus' : (openSearchRadio.checked ? 'OpenSearch' : '');
+
+                // Show loading spinner during the search
+                showLoadingSpinner();
+
+                // Simulate a delay (replace this with your actual search logic)
+                setTimeout(function () {
+                    // Hide the loading spinner when the search is complete
+                    hideLoadingSpinner();
+
+                    // Implement your search functionality here
+                    console.log('Search Text:', searchText);
+                    console.log('Search Type:', searchType);
+                }, 2000); // Simulated 2-second delay; replace with your actual search processing time
+            }
+        });
+
+
+        //new update______________________________________
+        searchInput.addEventListener('keydown', function (event) {
+            // Update character count
+            const charCount = searchInput.value.length;
+            document.getElementById('charCount').textContent = `Character Count: ${charCount}`;
+
+            // Update key code
+            document.getElementById('keyCode').textContent = `Key Code: ${event.keyCode}`;
+            document.getElementById('keyName').textContent = `Key:${event.key}`;
+        });
+
+        // Update the performSearch function to display results
+        function performSearch(query) {
+            // Simulate a search result
+            const searchResult = `Searching for: ${query}`;
+
+            // Display the result in the child-2 div
+            const child2Div = document.getElementById('child-2');
+            child2Div.innerHTML = `<h6 style="text-align: center;background-color: #3498db;width:100%;margin-top:0;">search results</h6>
+                                   <p>${searchResult}</p>`;
+        }
+
+        // Modify your submitButton click event handler
+        submitButton.addEventListener('click', function () {
+            if (isSearchDisabled) {
+                // If search is disabled, show a message
+                Swal.fire('Search Bar Disabled', 'You have reached the maximum character limit. Click OK to enable the search bar.', 'warning')
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            isSearchDisabled = false;
+                            searchInput.removeAttribute('disabled');
+                        }
+                    });
+            } else {
+                // If search is not disabled, perform the search
+                const searchText = searchInput.value;
+                const searchType = corpusRadio.checked ? 'Corpus' : (openSearchRadio.checked ? 'OpenSearch' : '');
+
+                // Show loading spinner during the search
+                showLoadingSpinner();
+
+                // Simulate a delay (replace this with your actual search logic)
+                setTimeout(function () {
+                    // Hide the loading spinner when the search is complete
+                    hideLoadingSpinner();
+
+                    // Call the performSearch function to display the result
+                    performSearch(searchText);
+
+                    // Implement your search functionality here
+                    console.log('Search Text:', searchText);
+                    console.log('Search Type:', searchType);
+                }, 2000); // Simulated 2-second delay; replace with your actual search processing time
+            }
+        });
+        // ===========================================================================
+
+        // function updateLoaderWidth() {
+        //     const loader = document.getElementById("loader");
+        //     const screenWidth = window.innerWidth;
+        //     const minWidth = 1200; // Set your desired minimum width
+
+        //     // Set the loader's width based on screen width
+        //     if (screenWidth >= minWidth) {
+        //         loader.style.width = "100%";
+        //     } else {
+        //         loader.style.width = `${minWidth}px`;
+        //     }
+        // }
+
+        // // Add an event listener for the "load" event
+        // window.addEventListener("load", updateLoaderWidth);
+
+        // // Add an event listener for the "resize" event
+        // window.addEventListener("resize", updateLoaderWidth);
+
+    </script>
+</body>
+
+</html>

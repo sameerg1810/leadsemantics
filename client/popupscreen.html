@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Style the popup window */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 300px;
+            background-color: white;
+            border: 1px solid blue;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style the popup header */
+        .popup-header {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 10px;
+            font-weight: bold;
+            color: white;
+            background-color: rgb(0, 153, 255);
+        }
+
+        /* Style the popup content */
+        .popup-content {
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        /* Style the popup footer */
+        .popup-footer {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        /* Style the input field */
+        input {
+            width: 50px;
+        }
+
+        /* Style the buttons */
+        button {
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Create a button to trigger the popup -->
+    <button id="trigger">Show Popup</button>
+    <!-- Create a div element to hold the popup -->
+    <div id="popup" class="popup" hidden>
+        <div class="popup-header">Graph :</div>
+        <div class="popup-content">
+            <ul>
+                <li>http://ims.com/seg/pred/tracks</li>
+                <li>http://ims.com/seg/pred/measure</li>
+                <li>http://ims.com/seg/pred/key</li>
+                <li>http://ims.com/seg/pred/mode</li>
+                <li>http://ims.com/seg/pred/duration</li>
+                <li>http://ims.com/seg/pred/bitrate</li>
+                <li>http://ims.com/seg/pred/sample_rate</li>
+                <li>http://ims.com/seg/pred/channels</li>
+                <li>http://ims.com/seg/pred/file_size</li>
+                <li>http://ims.com/seg/pred/file_type</li>
+                <li>http://ims.com/seg/pred/file_name</li>
+                <li>http://ims.com/seg/pred/file_path</li>
+            </ul>
+        </div>
+        <!-- Create a div element for the popup footer -->
+        <div class="popup-footer">
+            Limit: <input type="number" id="limit" value="10">
+            <!-- Create a button to apply the predicates -->
+            <button id="apply">Apply Selected Predicates To All Graphs</button>
+            <button id="add">Add</button>
+        </div>
+    </div>
+
+    <!-- Add a script tag to handle the popup logic -->
+    <script>
+        let trigger = document.getElementById("trigger");
+        let popup = document.getElementById("popup");
+        trigger.addEventListener("click", function () {
+            popup.hidden = !popup.hidden;
+        });
+    </script>

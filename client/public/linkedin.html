@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="./linkedin.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container border-black">
+        <div class="linkedin-login border-1">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/LinkedIn_logo_2019.svg/1200px-LinkedIn_logo_2019.svg.png"
+                class="linkedin-logo">
+            <h1>Sign in with LinkedIn</h1>
+            <form class="linkedin-form">
+                <div class="mb-3">
+                    <label for="email">Email or Phone</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email or phone number">
+                </div>
+                <div class="mb-3">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Login with LinkedIn</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

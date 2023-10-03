@@ -1,0 +1,89 @@
+.btn-facebook {
+    display: inline-block;
+    background-color: #3b5998;
+    color: white;
+    border: none;
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+#gbutton {
+    display: inline-block;
+    padding: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.google {
+    background-color: #dd4b39;
+}
+
+.google:hover {
+    background-color: #e74c3c;
+}
+
+#login-linkedin {
+    display: inline-block;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0077b5;
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.showPasswordBtn {
+    border: none;
+    background: transparent;
+}
+
+.btn-facebook {
+    background-color: #1877f2;
+}
+
+.google {
+    background-color: #db4a39;
+}
+
+.link-primary {
+    color: #007bff;
+    text-decoration: none;
+}
+
+@media (max-width: 576px) {
+    .card {
+        margin-top: 20px;
+    }
+}

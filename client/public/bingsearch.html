@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Adjusting Search Bar</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: stretch;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            max-width: 300px;
+            max-height: 50px;
+            /* Adjust the width as desired */
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 5px;
+            font-size: 16px;
+            outline: none;
+            font-family: monospace;
+            resize: none;
+            /* Disable textarea resizing */
+            min-height: 30px;
+            /* Minimum height for one line of text */
+            padding-right: 10px;
+            /* Add padding to the right to accommodate the button */
+        }
+
+        .search-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            padding: 5px 5px;
+            cursor: pointer;
+            font-size: 10px;
+            position: relative;
+            top: 1px;
+            /* Adjust the vertical position of the button */
+            margin-left: -10px;
+            /* Adjust the horizontal position of the button */
+        }
+
+        /* Apply box shadow on textarea when clicked */
+        .search-bar:focus-within .search-input {
+            box-shadow: 0 0 5px #007BFF;
+        }
+
+        /* Apply box shadow on button when clicked */
+        .search-bar:focus-within .search-btn {
+            box-shadow: 0 0 5px #007BFF;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="search-bar">
+        <textarea class="search-input" placeholder="Search Anything" id="searchInput"></textarea>
+        <button class="search-btn" id="searchButton">Search</button>
+    </div>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const textArea = document.getElementsByTagName('textarea');
+        // Click event listener for the textarea
+        searchInput.addEventListener('click', () => {
+            searchInput.style.boxShadow = '0 0 5px #007BFF';
+            searchInput.style.border = '2px solid #007BFF'; // Add border
+        });
+
+        // Blur event listener (when the textarea loses focus) to remove the box shadow and border
+        searchInput.addEventListener('blur', () => {
+            searchInput.style.boxShadow = 'none';
+            searchInput.style.border = ''; // Remove border
+        });
+
+        // Function to handle search
+        function performSearch(query) {
+            alert(`Searching for: ${query}`);
+        }
+
+        // Click event listener for the search button
+        searchButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const inputValue = searchInput.value.trim(); // Trim to remove leading/trailing spaces
+            if (inputValue === '') {
+                alert('Please enter a valid search query.');
+            } else {
+                performSearch(inputValue);
+            }
+        });
+
+        // Limiting the search input characters
+        // Limiting the search input characters
+        // Limiting the search input characters
+        searchInput.addEventListener('input', () => {
+            const maxLength = 40; // Change this value to the desired character limit
+            let inputValue = searchInput.value;
+
+            if (inputValue.length > maxLength) {
+                inputValue = inputValue.substring(0, maxLength); // Truncate input if it exceeds the limit
+                alert('Character limit reached.');
+            }
+            if (inputValue.length == 0) {
+                alert("please Enter something");
+            }
+
+            if (inputValue.length > 0 && !inputValue.match(/^ +/)) {
+                console.log(inputValue);
+                searchInput.value = inputValue;
+            } else {
+                console.log("this is else part");
+                inputValue = inputValue.trimStart();
+                searchInput.value = inputValue;
+                alert("Enter something....! At least more than 2 chars");
+            }
+        });
+
+
+        // Remove consecutive spaces and ensure at least one valid character is present
+
+
+        // Update the value in the textarea
+
+
+
+
+
+        // Backspace key function
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && searchInput.selectionStart === searchInput.selectionEnd) {
+                const cursorPosition = searchInput.selectionStart;
+                const lines = searchInput.value.split('\n');
+                const currentLineIndex = searchInput.value.substr(0, cursorPosition).split('\n').length - 1;
+
+                if (!lines[currentLineIndex].trim() && currentLineIndex > 0) {
+                    e.preventDefault();
+                    searchInput.value = lines.filter((_, i) => i !== currentLineIndex).join('\n');
+                    alert('Empty line removed.');
+                    searchInput.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
+                }
+            }
+        });
+
+        // Keydown event listener for input restrictions
+        searchInput.addEventListener('keydown', (e) => {
+            // Define an array of keycodes that should be allowed
+            const allowedKeyCodes = [
+                'Enter', // Enter key
+                'Backspace', // Backspace key
+                'ArrowLeft', // Left arrow key
+                'ArrowRight', // Right arrow key
+                'Delete', // Delete key
+                'Tab', // Tab key
+                'Home', // Home key
+                'End', // End key
+                'Insert', // Insert key
+                'NumLock', // Num Lock key
+                ' ',//SpaceBar
+            ];
+
+            // Allow alphanumeric characters
+
+
+            // Check if the key is allowed
+            if (allowedKeyCodes.indexOf(e.key) === -1 && !e.key.match(/^[a-zA-Z0-9 ]$/)) {
+                e.preventDefault(); // Prevent input of disallowed keys
+                alert('Invalid character entered.');
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                console.log("Enter button pressed");
+            }
+
+        });
+
+
+    </script>
+</body>
+
+</html>

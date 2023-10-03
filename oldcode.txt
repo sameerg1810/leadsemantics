@@ -1,0 +1,304 @@
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const destinationFolder = "D:/Excelsheet";
+    if (!fs.existsSync(destinationFolder)) {
+      fs.mkdirSync(destinationFolder, { recursive: true });
+    }
+    cb(null, destinationFolder);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      const destinationFolder = "D:/Excelsheet";
+      if (!fs.existsSync(destinationFolder)) {
+        fs.mkdirSync(destinationFolder, { recursive: true });
+      }
+      cb(null, destinationFolder);
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    },
+  }),
+  fileFilter: function (req, file, callback) {
+    if (file.mimetype === "text/csv") {
+      callback(null, true);
+    } else {
+      console.log("Only .csv files are supported!");
+      callback(null, false);
+    }
+  },
+});
+
+app.post("/upload", upload.single("csvFile"), (req, res) => {
+  if (req.file) {
+    console.log("File uploaded:", req.file);
+
+    fs.readFile(req.file.path, "utf-8", (err, data) => {
+      if (err) {
+        console.error("Error reading the file:", err);
+        res.status(500).send("Error reading the file.");
+      } else {
+        console.log("File content:", data);
+        const fileName = req.file.originalname;
+        const fileData = [];
+
+        csv()
+          .on("data", (row) => {
+            fileData.push(row);
+          })
+          .on("end", () => {
+            console.log("Parsed file data:", fileData);
+
+            res.json({ data: fileData });
+          });
+      }
+    });
+  } else {
+    res.status(400).send("No file uploaded. Only CSV files are allowed.");
+  }
+});
+
+app.get("/files/:fileName", (req, res) => {
+  const fileName = req.params.fileName;
+  const filePath = `D:/Excelsheet/${fileName}`;
+
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.error("File not found:", err);
+      res.status(404).send("File not found.");
+    } else {
+      fs.readFile(filePath, "utf-8", (err, data) => {
+        if (err) {
+          console.error("Error reading the file:", err);
+          res.status(500).send("Error reading the file.");
+        } else {
+          console.log("File content:", data);
+          res.send(data);
+        }
+      });
+    }
+  });
+});
+
+
+
+*****************************************14:36***************************************************import express from "express";
+import session from "express-session";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+import multer from "multer";
+import fs from "fs";
+import csv from "csv-parser";
+import mysql2 from "mysql2";
+import csvParser from "csv-parser";
+
+const app = express();
+const PORT = 8080;
+
+// Create a connection
+const con = mysql2.createConnection({
+  host: "localhost",
+  port: 3306,
+  database: "leads",
+  user: "root",
+  password: "root456",
+});
+
+// Connect to MySQL
+con.connect(function (err) {
+  if (err) throw err;
+  console.log("MySQL server running");
+
+  // Retrieve and display the users table data
+  con.query("SELECT * FROM users", function (err, rows) {
+    if (err) throw err;
+    console.log("Users Table Data:");
+    console.log(rows);
+  });
+});
+
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    secret: "your-secret-key",
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 300000 },
+  })
+);
+
+app.use(
+  "/index.html",
+  express.static("D:/userportal/client/public/index.html")
+);
+app.use(
+  "/dashboard.html",
+  express.static("D:/userportal/client/public/dashboard.html")
+);
+
+app.use("/uploads", express.static("D:/userportal/server/uploads"));
+
+// Route for login
+app.post("/login", (req, res) => {
+  const { user_name, user_pass } = req.body;
+
+  const sql = "SELECT * FROM users WHERE user_name = ? AND user_pass = ?";
+  const values = [user_name, user_pass];
+
+  con.query(sql, values, (err, result, fields) => {
+    if (err) {
+      console.error("Error finding user:", err);
+      res.status(500).send("Error finding user.");
+    } else if (result.length === 0) {
+      console.log("User not found");
+      res.status(404).send("User not found.");
+    } else {
+      console.log("User logged in successfully", result);
+      res.status(200).send("User logged in successfully");
+    }
+  });
+});
+
+// Route for register
+app.post("/register", (req, res) => {
+  const { user_name, user_pass } = req.body;
+  console.log("line 86.....", req.body.user_name, req.body.user_pass);
+  const sql = "INSERT INTO users (user_name, user_pass) VALUES (?, ?)";
+  const values = [user_name, user_pass];
+
+  con.query(sql, values, (err, result) => {
+    console.log("Received data:", user_name, user_pass);
+    if (err) {
+      console.error("Error registering user:", err);
+      res.status(500).send("Error registering user.");
+    } else {
+      console.log("User registered successfully", result);
+      res.redirect("/users/index.html?success=true");
+    }
+  });
+});
+
+app.get("/", (req, res) => {
+  res.sendFile("D:/userportal/client/public/index.html");
+});
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
+**********************************************************************************************************************************
+app.post("/reset-password", (req, res) => {
+  const { email } = req.body;
+
+  // Check if the email exists in the database
+  const emailCheckQuery = "SELECT * FROM users WHERE email = ?";
+  const emailCheckValues = [email];
+
+  pool.query(emailCheckQuery, emailCheckValues, (err, result) => {
+    if (err) {
+      console.error("Error checking email:", err);
+      res.status(500).send("Error checking email.");
+    } else if (result.length === 0) {
+      console.log("Email not found");
+      res.status(404).send("Email not found.");
+    } else {
+      // Generate a random password
+      const newPassword = generateRandomPassword(); // Implement your own logic to generate a random password
+
+      // Hash the new password
+      const hashedPassword = bcrypt.hashSync(newPassword, 10);
+
+      // Update the user's password in the database
+      const updatePasswordQuery =
+        "UPDATE users SET user_pass = ? WHERE email = ?";
+      const updatePasswordValues = [hashedPassword, email];
+
+      pool.query(updatePasswordQuery, updatePasswordValues, (err, result) => {
+        if (err) {
+          console.error("Error updating password:", err);
+          res.status(500).send("Error updating password.");
+        } else {
+          // Send the new password to the user via email or other communication method
+          sendPasswordToUser(email, newPassword); // Implement your own logic to send the password
+
+          res.status(200).send("Password reset successful.");
+        }
+      });
+    }
+  });
+});
+ 
+
+
+ const storage = multer.diskStorage({
+  destination: "./uploads",
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, callback) {
+    const fileExtension = path.extname(file.originalname).toLowerCase();
+    if (allowedFileExtensions.includes(fileExtension)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Only CSV files are allowed."));
+    }
+  },
+});
+
+// Route for file upload
+app.post("/upload", upload.array("csvFiles", 5), (req, res) => {
+  console.log(`Received request to ${req.url}`);
+  if (req.files && req.files.length > 0) {
+    const csvFiles = req.files;
+
+    // Process each CSV file as needed
+    const results = [];
+    const promises = csvFiles.map((csvFile) => {
+      return new Promise((resolve, reject) => {
+        // Create a read stream from the CSV file
+        const stream = fs.createReadStream(csvFile.path);
+
+        // Use csv-parser to parse the CSV data
+        const csvData = [];
+        stream
+          .pipe(csv())
+          .on("data", (data) => {
+            csvData.push(data);
+          })
+          .on("end", () => {
+            results.push(csvData);
+            resolve();
+          })
+          .on("error", (error) => {
+            reject(error);
+          });
+      });
+    });
+
+    Promise.all(promises)
+      .then(() => {
+        // Send the JSON data as the response
+        res.json(results);
+        console.log("Data from files:", results);
+      })
+      .catch((error) => {
+        res.status(500).send("Error processing files.");
+        console.error("Error processing files:", error);
+      });
+  } else {
+    res.status(400).send("No files uploaded.");
+  }
+});
